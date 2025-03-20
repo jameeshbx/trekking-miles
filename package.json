@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "@prisma/client": "^6.5.0",
@@ -27,13 +28,17 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.0.14",
+    "@types/cypress-image-snapshot": "^3.1.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
+    "cypress": "^14.2.0",
+    "cypress-image-snapshot": "^4.0.1",
     "eslint": "^9",
     "eslint-config-next": "15.2.3",
     "postcss": "^8.5.3",
+    "prisma-erd-generator": "^2.0.4",
     "tailwindcss": "^4.0.14",
     "typescript": "^5"
   }
