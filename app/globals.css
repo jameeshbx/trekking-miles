@@ -1,26 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+
 @plugin "tailwindcss-animate";
 
 /* Custom Variant for Dark Mode */
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark ));
 
 /* Font and Theme Variables */
 @theme {
   --font-sans: "Poppins", sans-serif; /* Default to Poppins */
   --font-raleway: "Raleway", sans-serif; /* Keep Raleway available */
   --font-mono: var(--font-geist-mono);
+  --font-nunito: "Nunito", sans-serif;
 }
 
-/* Light Mode Variables */
 :root {
-  --dark-green: oklch(0.25 0.2 150); /* Dark green (#183F30) */
+  --dark-green: oklch(0.25 0.2 150); 
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: var(--dark-green); /* Using Dark Green as Primary */
+  --primary: var(--dark-green); 
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -36,7 +38,6 @@
   --radius: 0.625rem;
 }
 
-/* Dark Mode Variables */
 .dark {
   --dark-green: oklch(0.25 0.2 150);
   --background: oklch(0.145 0 0);
@@ -61,7 +62,6 @@
   --radius: 0.625rem;
 }
 
-/* Inline Theme Variables */
 @theme inline {
   --color-dark-green: var(--dark-green);
   --color-background: var(--background);
@@ -89,20 +89,10 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* Base Styles */
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-    font-family: "Poppins", sans-serif; /* Default font: Poppins */
-    font-weight: 500; /* Medium (500) */
-    font-size: 18px; /* Base size */
-    line-height: 28px; /* Readability */
-    letter-spacing: 0%; /* No extra spacing */
-  }
   body {
     @apply bg-background text-foreground;
   }
-}
+
 
 /* Utility Classes to Switch Fonts */
 .font-raleway {
@@ -111,4 +101,8 @@
 
 .font-poppins {
   font-family: "Poppins", sans-serif;
+}
+
+.font-nunito {
+  font-family: 'Nunito', sans-serif;
 }
