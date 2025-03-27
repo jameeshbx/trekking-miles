@@ -12,11 +12,14 @@
   --font-raleway: "Raleway", sans-serif; /* Keep Raleway available */
   --font-mono: var(--font-geist-mono);
   --font-nunito: "Nunito", sans-serif;
+  --font-inter:"Inter", sans-serif;
 }
 
 :root {
   --custom-green: #183F30; 
   --custom-light: #E8F6ED;
+  --greenish: #2F7157;
+  --custom-lightwhite: #F2F2F2;
   --dark-green: oklch(0.25 0.2 150); 
   --orange: #F47C2A;
   --background: oklch(1 0 0);
@@ -44,6 +47,9 @@
 .dark {
   --custom-green: #183F30; 
   --custom-light: #E8F6ED;
+  --custom-lightwhite: #F2F2F2;
+  --greenish: #2F7157;
+  
   --dark-green: oklch(0.25 0.2 150);
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -70,6 +76,8 @@
 @theme inline {
   --color-custom-green: var(--custom-green);
   --color-custom-light: var(--custom-light);
+  --color-greenish: var(--greenish);
+  --color-custom-lightwhite: var(--custom-lightwhite);
   --color-dark-green: var(--dark-green);
   --color-orange: var(--orange);
   --color-background: var(--background);
@@ -113,4 +121,8 @@
 
 .font-nunito {
   font-family: 'Nunito', sans-serif;
+}
+
+.font-Inter{
+  font-family: 'Inter', sans-serif;
 }
