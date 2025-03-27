@@ -18,6 +18,7 @@
   --custom-green: #183F30; 
   --custom-light: #E8F6ED;
   --dark-green: oklch(0.25 0.2 150); 
+  --orange: #F47C2A;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -70,6 +71,7 @@
   --color-custom-green: var(--custom-green);
   --color-custom-light: var(--custom-light);
   --color-dark-green: var(--dark-green);
+  --color-orange: var(--orange);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
