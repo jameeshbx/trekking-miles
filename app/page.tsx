@@ -5,9 +5,9 @@ import SeeItInAction from "./components/wVideo";
 export default function Home() {
   return (
     <div>
-      <HowItWorks/>
-      <SeeItInAction/>
-      <SmartFeature/>
+      <HowItWorks />
+      <SeeItInAction />
+      <SmartFeature />
     </div>
   );
 }
