@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+
 @plugin "tailwindcss-animate";
 
 
 /* Custom Variant for Dark Mode */
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark ));
 
 /* Font and Theme Variables */
 @theme {
@@ -16,9 +18,10 @@
   --width-w1: 650px;
   --width-w2: 738px;
   --width-w3: 699;
+  --font-nunito: "Nunito", sans-serif;
+  --font-inter:"Inter", sans-serif;
 }
 
-/* Light Mode Variables */
 :root {
   --dark-green: oklch(0.25 0.2 150); /* Dark green (#183F30) */
   --light-green: #5BC17F;
@@ -29,6 +32,19 @@
   --light-blue: #6BCDEE;
   --dark-pink:#FD007F;
 
+  --custom-green: #183F30; 
+  --custom-light: #E8F6ED;
+  --greenish: #2F7157;
+  --custom-lightwhite: #F2F2F2;
+  --dark-green: oklch(0.25 0.2 150); 
+  --orange: #F47C2A;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: var(--dark-green); 
   --primary-foreground: oklch(0.985 0 0);
   --destructive: var(--dark-green);
   --destructive-foreground: oklch(0.985 0 0);
@@ -38,8 +54,12 @@
   --radius: 0.625rem;
 }
 
-/* Dark Mode Variables */
 .dark {
+  --custom-green: #183F30; 
+  --custom-light: #E8F6ED;
+  --custom-lightwhite: #F2F2F2;
+  --greenish: #2F7157;
+  
   --dark-green: oklch(0.25 0.2 150);
   --primary: var(--dark-green);
   --primary-foreground: oklch(0.205 0 0);
@@ -51,10 +71,20 @@
   --radius: 0.625rem;
 }
 
-/* Inline Theme Variables */
 @theme inline {
+  --color-custom-green: var(--custom-green);
+  --color-custom-light: var(--custom-light);
+  --color-greenish: var(--greenish);
+  --color-custom-lightwhite: var(--custom-lightwhite);
   --color-dark-green: var(--dark-green);
   --color-light-green: var(--light-green);
+  --color-orange: var(--orange);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-golden-yellow: var(--golden-yellow);
   --color-orange-red: var(--orange-red);
@@ -73,20 +103,10 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* Base Styles */
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-    font-family: "Poppins", sans-serif; /* Default font: Poppins */
-    font-weight: 500; /* Medium (500) */
-    font-size: 18px; /* Base size */
-    line-height: 28px; /* Readability */
-    letter-spacing: 0%; /* No extra spacing */
-  }
   body {
     /* @apply bg-background text-foreground; */
   }
-}
+
 
 @layer utilities {
   .w-w1 {
@@ -95,7 +115,7 @@
   .w-w2 {
     width: var(--width-w2);
   }
-}
+
 
 /* Utility Classes to Switch Fonts */
 .font-raleway {
@@ -112,4 +132,9 @@
 
 .font-urbanist {
   font-family: "Urbanist", sans-serif; /* Added Urbanist */
+  font-family: 'Nunito', sans-serif;
 }
+
+.font-Inter{
+  font-family: 'Inter', sans-serif;
+}}
