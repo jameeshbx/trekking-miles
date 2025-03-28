@@ -4,6 +4,7 @@ import Navbar from "./components/topBar";
 import Feature from "./components/featured-section";
 import Pricing from "./components/pricing-section";
 import Herosection from "./components/hero-section";
+import FAQSection from "./components/faq-section";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Herosection/>
       <Feature />
       <Pricing />
+      <FAQSection/>
       <Footer/>
       
     </div>

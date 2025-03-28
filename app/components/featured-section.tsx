@@ -47,7 +47,7 @@ export default function FeaturesSection() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 font-nunito mb-4">Our Value to You</h2>
-            <p className="text-xl text-gray-600 font- max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 font-Poppins max-w-3xl mx-auto">
               Empowering Agencies with Seamless Travel Planning
             </p>
           </div>
