@@ -41,7 +41,7 @@ export default function SignUp() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
+        <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto mt-56">
             <Input
                 type="text"
                 placeholder="Name"
