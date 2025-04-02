@@ -18,6 +18,7 @@
 :root {
   --custom-green: #183F30; 
   --custom-light: #E8F6ED;
+  --custom-lightorange: rgba(244, 124, 42, 0.37);
   --greenish: #2F7157;
   --custom-lightwhite: #F2F2F2;
   --dark-green: oklch(0.25 0.2 150); 
@@ -49,6 +50,7 @@
   --custom-light: #E8F6ED;
   --custom-lightwhite: #F2F2F2;
   --greenish: #2F7157;
+  --custom-lightorange: rgba(244, 124, 42, 0.37);
   
   --dark-green: oklch(0.25 0.2 150);
   --background: oklch(0.145 0 0);
@@ -78,6 +80,7 @@
   --color-custom-light: var(--custom-light);
   --color-greenish: var(--greenish);
   --color-custom-lightwhite: var(--custom-lightwhite);
+  --color-custom-lightorange: var(--custom-lightorange);
   --color-dark-green: var(--dark-green);
   --color-orange: var(--orange);
   --color-background: var(--background);
