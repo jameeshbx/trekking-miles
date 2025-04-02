@@ -11,9 +11,9 @@ export default function PricingSection() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly")
 
   // Handle billing cycle toggle
-  const toggleBillingCycle = () => {
-    setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")
-  }
+  //const toggleBillingCycle = () => {
+  //setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")
+  //}
 
   // Handle create account button click
   const handleCreateAccount = (plan: string) => {
@@ -49,15 +49,15 @@ export default function PricingSection() {
 
         {/* Pricing toggle */}
         <div className="flex items-center justify-center mb-12 font-bold">
-        <span
-  className={cn(
-    "mr-3 text-base font-bold cursor-pointer", // Added font-bold
-    billingCycle === "monthly" ? "text-gray-900" : "text-gray-500 font-poppins",
-  )}
-  onClick={() => setBillingCycle("monthly")}
->
-  Monthly
-</span>
+          <span
+            className={cn(
+              "mr-3 text-base font-bold cursor-pointer", // Added font-bold
+              billingCycle === "monthly" ? "text-gray-900" : "text-gray-500 font-poppins",
+            )}
+            onClick={() => setBillingCycle("monthly")}
+          >
+            Monthly
+          </span>
 
           <button
             onClick={() => setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")}
@@ -103,12 +103,12 @@ export default function PricingSection() {
               </div>
 
               <Button
-  variant="outline"
-  className="w-full bg-white !text-green-800 hover:bg-white !text-green-800 border-0 font-semibold text-base rounded-lg mt-5 h-[66px] cursor-pointer font-poppins"
-  onClick={() => handleCreateAccount("enterprise")}
->
-  {buttonText.createAccount}
-</Button>
+                variant="outline"
+                className="w-full bg-white !text-green-800 hover:bg-white !text-green-800 border-0 font-semibold text-base rounded-lg mt-5 h-[66px] cursor-pointer font-poppins"
+                onClick={() => handleCreateAccount("enterprise")}
+              >
+                {buttonText.createAccount}
+              </Button>
 
             </div>
 
@@ -124,12 +124,12 @@ export default function PricingSection() {
             </div>
 
             <div className="px-0">
-            <Button
-  className="w-full rounded-none bg-custom-green hover:bg-darkgreenish text-white h-[86px] text-lg font-semibold border-0 cursor-pointer font-poppins"
-  onClick={() => handleStartFreeTrial("enterprise")}
->
-  {buttonText.startTrial}
-</Button>
+              <Button
+                className="w-full rounded-none bg-custom-green hover:bg-darkgreenish text-white h-[86px] text-lg font-semibold border-0 cursor-pointer font-poppins"
+                onClick={() => handleStartFreeTrial("enterprise")}
+              >
+                {buttonText.startTrial}
+              </Button>
 
             </div>
           </div>
@@ -148,12 +148,12 @@ export default function PricingSection() {
               </div>
 
               <Button
-  variant="outline"
-  className="w-full bg-custom-green !text-white hover:bg-custom-green !text-white border-0 h-[66px] text-base rounded-lg mt-5 cursor-pointer font-semibold font-poppins"
-  onClick={() => handleCreateAccount("basic")}
->
-  {buttonText.createAccount}
-</Button>
+                variant="outline"
+                className="w-full bg-custom-green !text-white hover:bg-custom-green !text-white border-0 h-[66px] text-base rounded-lg mt-5 cursor-pointer font-semibold font-poppins"
+                onClick={() => handleCreateAccount("basic")}
+              >
+                {buttonText.createAccount}
+              </Button>
 
             </div>
 
@@ -169,12 +169,12 @@ export default function PricingSection() {
             </div>
 
             <div className="px-0">
-            <Button
-  className="w-full rounded-none bg-[#F2F2F2] hover:bg-[#F2F2F2] text-gray-800 h-[86px] text-lg font-semibold border-0 cursor-pointer font-poppins"
-  onClick={() => handleStartFreeTrial("basic")}
->
-  {buttonText.startTrial}
-</Button>
+              <Button
+                className="w-full rounded-none bg-[#F2F2F2] hover:bg-[#F2F2F2] text-gray-800 h-[86px] text-lg font-semibold border-0 cursor-pointer font-poppins"
+                onClick={() => handleStartFreeTrial("basic")}
+              >
+                {buttonText.startTrial}
+              </Button>
 
             </div>
           </div>
@@ -196,12 +196,12 @@ export default function PricingSection() {
               </div>
 
               <Button
-  variant="outline"
-  className="w-full bg-custom-green !text-white hover:bg-custom-green !text-white border-0 h-[66px] text-base rounded-lg mt-5 cursor-pointer font-semibold font-poppins"
-  onClick={() => handleCreateAccount("business")}
->
-  {buttonText.createAccount}
-</Button>
+                variant="outline"
+                className="w-full bg-custom-green !text-white hover:bg-custom-green !text-white border-0 h-[66px] text-base rounded-lg mt-5 cursor-pointer font-semibold font-poppins"
+                onClick={() => handleCreateAccount("business")}
+              >
+                {buttonText.createAccount}
+              </Button>
 
             </div>
 
@@ -217,12 +217,12 @@ export default function PricingSection() {
             </div>
 
             <div className="px-0">
-            <Button
-  className="w-full rounded-none bg-custom-lightwhite hover:bg-custom-lightwhite text-gray-800 h-[86px] text-lg font-semibold border-0 cursor-pointer font-poppins"
-  onClick={() => handleStartFreeTrial("business")}
->
-  {buttonText.startTrial}
-</Button>
+              <Button
+                className="w-full rounded-none bg-custom-lightwhite hover:bg-custom-lightwhite text-gray-800 h-[86px] text-lg font-semibold border-0 cursor-pointer font-poppins"
+                onClick={() => handleStartFreeTrial("business")}
+              >
+                {buttonText.startTrial}
+              </Button>
 
             </div>
           </div>

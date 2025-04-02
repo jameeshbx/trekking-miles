@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react"
 import { Play } from "lucide-react"
+import Image from "next/image"
 
 export default function SeeItInAction() {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -32,7 +33,7 @@ export default function SeeItInAction() {
           >
             <div className="bg-gray-100 rounded-xl aspect-video relative overflow-hidden">
               {/* Dashboard mockup image that shows before video plays */}
-              <img
+              <Image
                 src="/logo.png?height=600&width=800"
                 alt="Dashboard preview"
                 className="w-full h-full object-cover"
