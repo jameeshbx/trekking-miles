@@ -9,7 +9,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 w-full h-full hidden md:block">
         <div className="relative w-full h-full lg:top-[120px] md:top-[60px] md:h-[calc(100%+150px)]">
           <Image
-            src="/img/Header Elements.svg"
+            src="/background/Group 1171275925.png"
             alt="Background pattern"
             fill
             className="object-cover object-center md:object-top"

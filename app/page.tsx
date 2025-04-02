@@ -13,6 +13,10 @@ import Herosection from "./components/hero-section";
 import ContactSection from "./components/contactSection";
 
 import FAQSection from "./components/faq-section";
+import ContactSection from "./components/contactSection";
+import FAQSection from "./components/faq-section";
+import TestimonialSection from "./components/testmonial-section";
+
 
 export default function Home() {
   return (
@@ -25,6 +29,7 @@ export default function Home() {
       <SmartFeature />
       <Pricing />
       <FAQSection/>
+      <TestimonialSection/>
       <div className="relative py-16">
         <ContactSection/>
       </div>
