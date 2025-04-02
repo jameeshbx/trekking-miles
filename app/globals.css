@@ -3,6 +3,7 @@
 
 @plugin "tailwindcss-animate";
 
+
 /* Custom Variant for Dark Mode */
 @custom-variant dark (&:is(.dark ));
 
@@ -10,12 +11,27 @@
 @theme {
   --font-sans: "Poppins", sans-serif; /* Default to Poppins */
   --font-raleway: "Raleway", sans-serif; /* Keep Raleway available */
+  --font-nunito: "Nunito", sans-serif; /* Added Nunito */
+  --font-urbanist: "Urbanist", sans-serif; /* Added Urbanist */
   --font-mono: var(--font-geist-mono);
+
+  --width-w1: 650px;
+  --width-w2: 738px;
+  --width-w3: 699;
   --font-nunito: "Nunito", sans-serif;
   --font-inter:"Inter", sans-serif;
 }
 
 :root {
+  --dark-green: oklch(0.25 0.2 150); /* Dark green (#183F30) */
+  --light-green: #5BC17F;
+  --primary: var(--dark-green); /* Using Dark Green as Primary */
+  --golden-yellow: #E4A321;
+  --orange-red: #F97549;
+  --deep-red: #D82108;
+  --light-blue: #6BCDEE;
+  --dark-pink:#FD007F;
+
   --custom-green: #183F30; 
   --custom-light: #E8F6ED;
   --custom-lightorange: rgba(244, 124, 42, 0.37);
@@ -31,12 +47,6 @@
   --popover-foreground: oklch(0.145 0 0);
   --primary: var(--dark-green); 
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
   --destructive: var(--dark-green);
   --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.922 0 0);
@@ -53,20 +63,8 @@
   --custom-lightorange: rgba(244, 124, 42, 0.37);
   
   --dark-green: oklch(0.25 0.2 150);
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
   --primary: var(--dark-green);
   --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
   --destructive: var(--dark-green);
   --destructive-foreground: oklch(0.637 0.237 25.331);
   --border: oklch(0.269 0 0);
@@ -82,6 +80,7 @@
   --color-custom-lightwhite: var(--custom-lightwhite);
   --color-custom-lightorange: var(--custom-lightorange);
   --color-dark-green: var(--dark-green);
+  --color-light-green: var(--light-green);
   --color-orange: var(--orange);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -90,13 +89,12 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
+  --color-golden-yellow: var(--golden-yellow);
+  --color-orange-red: var(--orange-red);
+  --color-deep-red: var(--deep-red);
+  --color-light-blue: var(--light-blue);
+  --color-dark-pink: var(--dark-pink);
   --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
@@ -109,7 +107,16 @@
 }
 
   body {
-    @apply bg-background text-foreground;
+    /* @apply bg-background text-foreground; */
+  }
+
+
+@layer utilities {
+  .w-w1 {
+    width: var(--width-w1);
+  }
+  .w-w2 {
+    width: var(--width-w2);
   }
 
 
@@ -123,9 +130,14 @@
 }
 
 .font-nunito {
+  font-family: "Nunito", sans-serif; /* Added Nunito */
+}
+
+.font-urbanist {
+  font-family: "Urbanist", sans-serif; /* Added Urbanist */
   font-family: 'Nunito', sans-serif;
 }
 
 .font-Inter{
   font-family: 'Inter', sans-serif;
-}
+}}
