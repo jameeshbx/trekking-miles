@@ -11,9 +11,6 @@ import Pricing from "./components/pricing-section";
 import Herosection from "./components/hero-section";
 
 import ContactSection from "./components/contactSection";
-
-import FAQSection from "./components/faq-section";
-import ContactSection from "./components/contactSection";
 import FAQSection from "./components/faq-section";
 import TestimonialSection from "./components/testmonial-section";
 
