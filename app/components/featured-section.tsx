@@ -193,17 +193,17 @@ export default function FeaturesSection() {
             </div>
 
             {/* Additional Image Section - Only on desktop */}
-            <div className="mb-20 flex justify-end">
-        <Image
-          src="/img/Kit 6.svg"
-          alt="Additional Section"
-          width={200}
-          height={200}
-          className="rounded-lg shadow-lg object-cover"
-          sizes="(max-width: 768px) 100vw, 200px"
-          priority
-        />
-      </div>
+            <div className="mb-20 flex justify-end absolute right-32 bottom-[-800px] z-0">
+              <Image
+                src="/img/Kit 6.svg"
+                alt="Additional Section"
+                width={200}
+                height={200}
+                className="rounded-lg shadow-lg object-cover"
+                sizes="(max-width: 768px) 100vw, 200px"
+                priority
+              />
+            </div>
           </div>
         )}
       </div>
@@ -243,7 +243,7 @@ function FeatureCard({
   isSeventhCard?: boolean
 }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-6 transition-all hover:shadow-md h-full">
+    <div className="bg-white border border-gray-200 rounded-lg p-6 transition-all hover:shadow-md h-full z-10">
       {isSeventhCard ? (
         <div className="flex gap-4">
           <div className="flex-1">
