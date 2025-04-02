@@ -20,10 +20,10 @@ export default function SeeItInAction() {
 
   return (
     <section
-      className="w-full py-8 sm:py-12 md:py-16 lg:py-24 overflow-hidden bg-white relative"
+      className="w-full py-8 sm:py-12 md:py-16 lg:py-24 overflow-hidden bg-white relative "
       data-test="see-it-in-action-section"
     >
-      <div className="container px-4 mx-auto sm:ml-0 md:ml-4 lg:ml-20 -mt-6 sm:-mt-12 md:-mt-16 lg:-mt-18">
+      <div className=" max-w-7xl mx-auto ">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 md:gap-12">
           {/* Video Section - Order 2 on mobile, Order 1 on md+ */}
           <div
