@@ -43,7 +43,9 @@ export default function PricingSection() {
       <div className="max-w-7xl mx-auto relative">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="lg:text-5xl md:text-4xl font-bold mb-4 font-nunito">{pricingHeader.title}</h2>
+        <h2 className="text-3xl  md:text-4xl lg:text-5xl font-bold mb-4 font-nunito">
+  {pricingHeader.title}
+</h2>
           <p className="text-gray-600 text-lg lg:text-xl font-poppins">{pricingHeader.subtitle}</p>
         </div>
 
