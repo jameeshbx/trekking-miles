@@ -34,12 +34,14 @@ export default function SeeItInAction() {
             <div className="bg-gray-100 rounded-xl aspect-video relative overflow-hidden">
               {/* Dashboard mockup image that shows before video plays */}
               <Image
-                src="/logo.png?height=600&width=800"
-                alt="Dashboard preview"
-                className="w-full h-full object-cover"
-                style={{ display: isPlaying ? "none" : "block" }}
-                data-test="video-thumbnail"
-              />
+  src="/logo.png"
+  width={800} // Set the correct width
+  height={600} // Set the correct height
+  alt="Dashboard preview"
+  className="w-full h-full object-cover"
+  style={{ display: isPlaying ? "none" : "block" }}
+  data-test="video-thumbnail"
+/>
 
               {/* Actual video element */}
               <video
