@@ -31,7 +31,7 @@ export default function HeroSection() {
                     alt="All-in-One decoration"
                     width={600}
                     height={50}
-                    className="absolute bottom-[0px] left-[-7%] w-[122%] max-w-[122%] z-0"
+                    className="absolute bottom-[0px] left-[-7%] w-[122%] max-w-[114%] z-0 "
                   />
                 </span>
                 <br className="hidden md:block" /> Solution

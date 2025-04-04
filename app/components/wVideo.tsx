@@ -1,13 +1,13 @@
 "use client"
-
+ 
 import { useRef, useState } from "react"
 import { Play } from "lucide-react"
 import Image from "next/image"
-
+ 
 export default function SeeItInAction() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
-
+ 
   const handlePlayClick = () => {
     if (videoRef.current) {
       if (isPlaying) {
@@ -18,7 +18,7 @@ export default function SeeItInAction() {
       setIsPlaying(!isPlaying)
     }
   }
-
+ 
   return (
     <section
       className="w-full py-8 sm:py-12 md:py-16 lg:py-24 overflow-hidden bg-white relative "
@@ -42,7 +42,7 @@ export default function SeeItInAction() {
   style={{ display: isPlaying ? "none" : "block" }}
   data-test="video-thumbnail"
 />
-
+ 
               {/* Actual video element */}
               <video
                 ref={videoRef}
@@ -54,7 +54,7 @@ export default function SeeItInAction() {
                 <source src="/demo-video.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-
+ 
               {/* Play button overlay */}
               {!isPlaying && (
                 <button
@@ -70,7 +70,7 @@ export default function SeeItInAction() {
               )}
             </div>
           </div>
-
+ 
           {/* Text Content - Order 1 on mobile, Order 2 on md+ */}
           <div
             className="w-full md:w-1/2 text-center md:text-left mt-6 md:mt-0 order-1 md:order-2"
@@ -90,4 +90,3 @@ export default function SeeItInAction() {
     </section>
   )
 }
-
