@@ -24,7 +24,7 @@ export default function ResetPasswordForm() {
   }, [])
 
   return (
-    <div className="relative w-full overflow-hidden py-6 px-4 sm:px-6 lg:px-8 bg-custom-green z-[1]">
+    <div className="relative w-full overflow-hidden  py-16 px-4 sm:px-6 lg:px-8 bg-custom-green z-[1]">
       {/* Background pattern */}
       <div className="absolute inset-0 -z-10">
         <Image
