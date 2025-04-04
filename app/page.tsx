@@ -15,18 +15,18 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <Herosection/>
+      <Herosection />
       <Feature />
       <HowItWorks />
       <SeeItInAction />
       <SmartFeature />
       <Pricing />
-      <FAQSection/>
-      <TestimonialSection/>
+      <FAQSection />
+      <TestimonialSection />
       <div className="relative py-16">
-        <ContactSection/>
+        <ContactSection />
       </div>
-      <Footer/>
+      <Footer />
 
     </div>
   );
