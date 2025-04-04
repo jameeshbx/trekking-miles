@@ -89,7 +89,7 @@ export default function HowItWorks() {
       data-testid="how-it-works-section"
     >
       <div className="absolute inset-0 -z-10">
-        <Image src="/background/bg1.png" alt="" fill className="object-cover opacity-30" priority />
+        <Image src="/background/bg1.png" alt="" fill className="object-cover" priority />
       </div>
 
       <div className="max-w-7xl mx-auto">
