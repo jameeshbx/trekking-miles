@@ -32,7 +32,6 @@
   --light-blue: #6BCDEE;
   --dark-pink:#FD007F;
   --greenook:#026451;
-
   --custom-green: #183F30; 
   --custom-light: #E8F6ED;
   --custom-lightorange: rgba(244, 124, 42, 0.37);
@@ -75,6 +74,7 @@
 }
 
 @theme inline {
+  --color-greenook: var(--greenook);
   --color-custom-green: var(--custom-green);
   --color-custom-light: var(--custom-light);
   --color-greenish: var(--greenish);
