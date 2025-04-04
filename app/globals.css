@@ -18,6 +18,7 @@
   --width-w1: 650px;
   --width-w2: 738px;
   --width-w3: 699;
+  --height-h1: 531px;
   --font-nunito: "Nunito", sans-serif;
   --font-inter:"Inter", sans-serif;
 }
@@ -31,6 +32,9 @@
   --deep-red: #D82108;
   --light-blue: #6BCDEE;
   --dark-pink:#FD007F;
+
+  --custom-green: #183F30;
+  --secondary-green: #026451; 
   --greenook:#026451;
   --custom-green: #183F30; 
   --custom-light: #E8F6ED;
@@ -76,6 +80,7 @@
 @theme inline {
   --color-greenook: var(--greenook);
   --color-custom-green: var(--custom-green);
+  --color-secondary-green: var(--secondary-green);
   --color-custom-light: var(--custom-light);
   --color-greenish: var(--greenish);
   --color-greenook: var(--greenook);
@@ -119,6 +124,9 @@
   }
   .w-w2 {
     width: var(--width-w2);
+  }
+  .h-h1 {
+    height: var(--height-h1);
   }
 
 
