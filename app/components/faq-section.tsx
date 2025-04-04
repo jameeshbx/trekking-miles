@@ -24,7 +24,7 @@ export default function FAQSection() {
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 font-nunito">
-            Got Questions? We've Got Answers
+            Got Questions? We&apos;ve Got Answers
           </h1>
           <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto px-2 sm:px-0 font-Poppins">
             Find everything you need to know about planning, booking, and managing travel effortlessly

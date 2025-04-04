@@ -1,12 +1,13 @@
 "use client"
-
+ 
 import { useRef, useState } from "react"
 import { Play } from "lucide-react"
-
+import Image from "next/image"
+ 
 export default function SeeItInAction() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
-
+ 
   const handlePlayClick = () => {
     if (videoRef.current) {
       if (isPlaying) {
@@ -17,13 +18,13 @@ export default function SeeItInAction() {
       setIsPlaying(!isPlaying)
     }
   }
-
+ 
   return (
     <section
-      className="w-full py-8 sm:py-12 md:py-16 lg:py-24 overflow-hidden bg-white relative"
+      className="w-full py-8 sm:py-12 md:py-16 lg:py-24 overflow-hidden bg-white relative "
       data-test="see-it-in-action-section"
     >
-      <div className="container px-4 mx-auto sm:ml-0 md:ml-4 lg:ml-20 -mt-6 sm:-mt-12 md:-mt-16 lg:-mt-18">
+      <div className=" max-w-7xl mx-auto ">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 md:gap-12">
           {/* Video Section - Order 2 on mobile, Order 1 on md+ */}
           <div
@@ -32,14 +33,16 @@ export default function SeeItInAction() {
           >
             <div className="bg-gray-100 rounded-xl aspect-video relative overflow-hidden">
               {/* Dashboard mockup image that shows before video plays */}
-              <img
-                src="/logo.png?height=600&width=800"
-                alt="Dashboard preview"
-                className="w-full h-full object-cover"
-                style={{ display: isPlaying ? "none" : "block" }}
-                data-test="video-thumbnail"
-              />
-
+              <Image
+  src="/logo.png"
+  width={800} // Set the correct width
+  height={600} // Set the correct height
+  alt="Dashboard preview"
+  className="w-full h-full object-cover"
+  style={{ display: isPlaying ? "none" : "block" }}
+  data-test="video-thumbnail"
+/>
+ 
               {/* Actual video element */}
               <video
                 ref={videoRef}
@@ -51,7 +54,7 @@ export default function SeeItInAction() {
                 <source src="/demo-video.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-
+ 
               {/* Play button overlay */}
               {!isPlaying && (
                 <button
@@ -67,7 +70,7 @@ export default function SeeItInAction() {
               )}
             </div>
           </div>
-
+ 
           {/* Text Content - Order 1 on mobile, Order 2 on md+ */}
           <div
             className="w-full md:w-1/2 text-center md:text-left mt-6 md:mt-0 order-1 md:order-2"
@@ -87,4 +90,3 @@ export default function SeeItInAction() {
     </section>
   )
 }
-
