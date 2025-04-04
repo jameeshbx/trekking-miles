@@ -23,7 +23,7 @@ export default function LoginForm() {
   }, [])
 
   return (
-    <div className="relative w-full overflow-hidden py-6 px-4 sm:px-6 lg:px-8 bg-emerald-900 z-[10]">
+    <div className="relative w-full overflow-hidden py-6 px-4 sm:px-6 lg:px-8 bg-custom-green z-[10]">
   
       <div className="absoloute inset-0 -z-[10] ">
         <Image
@@ -39,7 +39,7 @@ export default function LoginForm() {
       {!isMobile && (
         <a
           href="/"
-          className="absolute top-5 left-5 bg-emerald-700 rounded-full p-2 border-2 border-white z-50 cursor-pointer hover:bg-emerald-800 transition-colors"
+          className="absolute top-5 left-5 bg-custom-green rounded-full p-2 border-2 border-white z-50 cursor-pointer hover:bg-emerald-800 transition-colors"
         >
           <svg
             width="32"
@@ -63,7 +63,7 @@ export default function LoginForm() {
       {isMobile && (
         <a
           href="/"
-          className="absolute top-5 right-5 bg-emerald-700 rounded-full p-2 border-2 border-white z-50 cursor-pointer hover:bg-emerald-800 transition-colors"
+          className="absolute top-5 right-5 bg-custom-green rounded-full p-2 border-2 border-white z-50 cursor-pointer hover:bg-custom-green  transition-colors"
         >
           <X className="h-5 w-5 text-white" />
         </a>
@@ -74,7 +74,7 @@ export default function LoginForm() {
       
           <div className="mx-auto flex w-full max-w-5xl flex-col overflow-hidden rounded-lg shadow-lg md:flex-row">
      
-          <div className="relative w-full bg-emerald-700 p-8 md:p-10 md:w-1/2">
+          <div className="relative w-full bg-greenook p-8 md:p-10 md:w-1/2">
          
             <div className="absolute -left-8 -bottom-6 z-0">
               <Image
@@ -97,7 +97,7 @@ export default function LoginForm() {
             </div>
             
           
-            <div className="absolute inset-0 bg-emerald-700/70"></div>
+            <div className="absolute inset-0 "></div>
             
             <div className="relative z-10">
              
@@ -116,7 +116,7 @@ export default function LoginForm() {
                   Start your remarkable journey with us!
                 </h1>
 
-                <p className="mt-4 md:mt-6 text-base md:text-lg text-white/90 text-center md:text-left font-poppins font-normal">
+                <p className="mt-4 md:mt-6 text-base md:text-lg text-white/90 text-center md:text-left text-sans font-normal">
                   Seamless Access to Your Travel Business Hub
                 </p>
               </div>
@@ -211,7 +211,7 @@ export default function LoginForm() {
               
                   <button
                     type="submit"
-                    className="w-full rounded-full bg-emerald-700 px-4 py-3 font-medium text-white hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 transition-colors"
+                    className="w-full rounded-full bg-greenook px-4 py-3 font-medium text-white hover:bg-greenook focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 transition-colors"
                   >
                     Login
                   </button>
@@ -219,7 +219,7 @@ export default function LoginForm() {
            
                   <div className="text-center text-sm text-gray-700">
                     Don't have an account?{" "}
-                    <Link href="/signup" className="font-medium text-emerald-700 hover:text-emerald-800">
+                    <Link href="/signup" className="font-medium text-greenook hover:text-greenook">
                       Signup
                     </Link>
                   </div>
@@ -232,7 +232,7 @@ export default function LoginForm() {
           <div className="w-full max-w-md">
             
             {/* Green header section */}
-            <div className="bg-emerald-700 p-6 rounded-t-lg relative overflow-hidden z-20">
+            <div className="bg-greenook  p-6 rounded-t-lg relative overflow-hidden z-20">
               <div className="relative z-30">
                 {/* Logo Image */}
                 <div className="flex justify-center mb-4">
@@ -337,7 +337,7 @@ export default function LoginForm() {
                 {/* Submit Button */}
                 <button 
                   type="submit" 
-                  className="w-full rounded-full bg-emerald-700 px-4 py-2 font-medium text-white hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 transition-colors"
+                  className="w-full rounded-full bg-greenook px-4 py-2 font-medium text-white hover:bg-greenook focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 transition-colors"
                 >
                   Login
                 </button>
@@ -347,13 +347,13 @@ export default function LoginForm() {
                   Don't have an account?{" "}
                   <Link 
                     href="/signup" 
-                    className="font-medium text-emerald-700 hover:text-emerald-800"
+                    className="font-medium text-greenook hover:text-greenook"
                   >
                     Signup
                   </Link>
                 </div>
               </form>
-            </div>
+           </div>
           </div>
         )}
       </div>
