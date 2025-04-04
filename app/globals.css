@@ -31,6 +31,7 @@
   --deep-red: #D82108;
   --light-blue: #6BCDEE;
   --dark-pink:#FD007F;
+  --greenook:#026451;
 
   --custom-green: #183F30; 
   --custom-light: #E8F6ED;
@@ -61,7 +62,7 @@
   --custom-lightwhite: #F2F2F2;
   --greenish: #2F7157;
   --custom-lightorange: rgba(244, 124, 42, 0.37);
-  
+  --greenook:#026451;
   --dark-green: oklch(0.25 0.2 150);
   --primary: var(--dark-green);
   --primary-foreground: oklch(0.205 0 0);
@@ -77,6 +78,7 @@
   --color-custom-green: var(--custom-green);
   --color-custom-light: var(--custom-light);
   --color-greenish: var(--greenish);
+  --color-greenook: var(--greenook);
   --color-custom-lightwhite: var(--custom-lightwhite);
   --color-custom-lightorange: var(--custom-lightorange);
   --color-dark-green: var(--dark-green);
