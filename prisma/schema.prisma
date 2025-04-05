@@ -23,14 +23,14 @@ enum Role {
   SUPER_ADMIN
   AGENT_USER
   AGENT_ADMIN
-  CET_USER
-  CET_ADMIN
+  DMC_USER
+  DMC_ADMIN
 }
 
 enum UserType {
   TEKKING_MYLES
   AGENCY
-  CET
+  DMC
 }
 
 model User {
@@ -45,10 +45,13 @@ model User {
   updatedAt DateTime @updatedAt
   agency    Agency?  @relation(fields: [agencyId], references: [id])
   agencyId  String?
-  cet       CET?     @relation(fields: [cetId], references: [id])
-  cetId     String?
+  dmc       DMC?     @relation(fields: [dmcId], references: [id])
+  dmcId     String?
 
   passwordResets PasswordReset[]
+
+  @@index([email])
+  @@index([role])
 }
 
 model Agency {
@@ -60,9 +63,11 @@ model Agency {
   updatedAt     DateTime       @updatedAt
   users         User[]
   subscriptions Subscription[]
+
+  @@index([name])
 }
 
-model CET {
+model DMC {
   id        String   @id @default(uuid())
   name      String
   config    Json
@@ -70,6 +75,8 @@ model CET {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   users     User[]
+
+  @@index([name])
 }
 
 model PasswordReset {
