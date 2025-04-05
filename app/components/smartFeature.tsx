@@ -6,7 +6,7 @@ const features = [
   {
     title: "Connect with partners, compare prices, and finalize deals.",
     imageSrc: "/background/feature1.png?height=400&width=600",
-    containerClassName: "xl:col-span-8  mx-auto",
+    containerClassName: "xl:col-span-8  mx-auto shadow-xl",
   },
   {
     title: "DMC & Supplier Integration",
@@ -48,7 +48,7 @@ const features = [
   {
     title: "Dedicated help for seamless operations.",
     imageSrc: "/background/feature4.png?height=400&width=600",
-    containerClassName: "xl:col-span-7  mx-auto",
+    containerClassName: "xl:col-span-7  mx-auto shadow-xl",
     imageClassName: "lg:w-w2 lg:-ml-5",
   },
 ];
