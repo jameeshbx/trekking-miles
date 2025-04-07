@@ -61,7 +61,7 @@ export default function ForgotPassword() {
             {!isSuccess ? (
               <>
                 <p className="text-gray-600 mb-6 sm:mb-8 text-center text-sm sm:text-base font-nunito">
-                  Forgot your password? No worries, then let's submit password reset. It will be send to your email.
+                  Forgot your password? No worries, then lets submit password reset. It will be send to your email.
                 </p>
 
                 <form onSubmit={handleSubmit} data-cy="reset-form">
