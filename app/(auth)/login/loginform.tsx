@@ -2,8 +2,9 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Eye, X } from "lucide-react"
+import { Eye, X , ArrowLeft} from "lucide-react"
 import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
 
 export default function LoginForm() {
   const [isMobile, setIsMobile] = useState(false)
@@ -37,36 +38,21 @@ export default function LoginForm() {
 
  
       {!isMobile && (
-        <a
+        <Link
           href="/"
           className="absolute top-5 left-5 bg-custom-green rounded-full p-2 border-2 border-white z-50 cursor-pointer hover:bg-emerald-800 transition-colors"
         >
-          <svg
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="rotate-[-270deg]"
-          >
-            <path
-              d="M14 8L8 14M8 14V9M8 14H13"
-              stroke="white"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </a>
+          <ArrowLeft className="h-5 w-5 text-white rotate-[-320deg]" />
+        </Link>
       )}
       
       {isMobile && (
-        <a
+        <Link
           href="/"
           className="absolute top-5 right-5 bg-custom-green rounded-full p-2 border-2 border-white z-50 cursor-pointer hover:bg-custom-green  transition-colors"
         >
           <X className="h-5 w-5 text-white" />
-        </a>
+        </Link>
       )}
 
       <div className="relative z-10 flex items-center justify-center min-h-screen p-4 py-8 ">
@@ -218,7 +204,7 @@ export default function LoginForm() {
 
            
                   <div className="text-center text-sm text-gray-700">
-                    Don't have an account?{" "}
+                    Dont have an account?
                     <Link href="/signup" className="font-medium text-greenook hover:text-greenook">
                       Signup
                     </Link>
@@ -335,16 +321,16 @@ export default function LoginForm() {
                 </div>
 
                 {/* Submit Button */}
-                <button 
+                <Button 
                   type="submit" 
                   className="w-full rounded-full bg-greenook px-4 py-2 font-medium text-white hover:bg-greenook focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 transition-colors"
                 >
                   Login
-                </button>
+                </Button>
 
                 {/* Signup Link */}
                 <div className="text-center text-sm text-gray-700 mt-4">
-                  Don't have an account?{" "}
+                  Dont have an account?
                   <Link 
                     href="/signup" 
                     className="font-medium text-greenook hover:text-greenook"
