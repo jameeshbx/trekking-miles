@@ -1,3 +1,4 @@
+import { Nunito } from "next/font/google";
 import type { Config } from "tailwindcss";
  
 const config: Config = {
@@ -15,6 +16,7 @@ const config: Config = {
     fontFamily: {
       raleway: ['Raleway', 'sans-serif'],
       poppins: ['Poppins', 'sans-serif'],
+      nunito: Nunito({ subsets: ["latin"] }).style.fontFamily,
     },
   },
   plugins: [],

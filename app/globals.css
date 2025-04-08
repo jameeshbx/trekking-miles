@@ -26,15 +26,18 @@
 :root {
   --dark-green: oklch(0.25 0.2 150); /* Dark green (#183F30) */
   --light-green: #5BC17F;
+  --greenlight:#12AA5B;
   --primary: var(--dark-green); /* Using Dark Green as Primary */
   --golden-yellow: #E4A321;
   --orange-red: #F97549;
   --deep-red: #D82108;
   --light-blue: #6BCDEE;
   --dark-pink:#FD007F;
+  --greyish:#6B7280;
 
   --custom-green: #183F30;
-  --secondary-green: #026451; 
+  
+  --greenlight:#12AA5B;
   --greenook:#026451;
   --custom-green: #183F30; 
   --custom-light: #E8F6ED;
@@ -63,6 +66,7 @@
   --custom-green: #183F30; 
   --custom-light: #E8F6ED;
   --custom-lightwhite: #F2F2F2;
+  --greyish:#6B7280;
   --greenish: #2F7157;
   --custom-lightorange: rgba(244, 124, 42, 0.37);
   --greenook:#026451;
@@ -80,8 +84,10 @@
 @theme inline {
   --color-greenook: var(--greenook);
   --color-custom-green: var(--custom-green);
+  --color-greenlight: var(--greenlight);
   --color-secondary-green: var(--secondary-green);
   --color-custom-light: var(--custom-light);
+  --color-greyish: var(--greyish);
   --color-greenish: var(--greenish);
   --color-greenook: var(--greenook);
   --color-custom-lightwhite: var(--custom-lightwhite);
