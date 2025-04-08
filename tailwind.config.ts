@@ -15,6 +15,7 @@ const config: Config = {
     fontFamily: {
       raleway: ['Raleway', 'sans-serif'],
       poppins: ['Poppins', 'sans-serif'],
+      sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
     },
   },
   plugins: [],
