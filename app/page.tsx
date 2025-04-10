@@ -26,7 +26,7 @@ export default function Home() {
       <div className="relative py-16">
         <ContactSection />
       </div>
-      <Footer />
+      <Footer />  
 
     </div>
   );
