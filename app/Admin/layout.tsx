@@ -1,8 +1,7 @@
 "use client"
 
 import { useState } from 'react';
-import Sidebar from '@/app/admin/components/sidebar';
-import { TopBarContainer } from './components/tobBarContainer';
+import Sidebar from '@/app/Admin/components/sidebar';
 
 export default function ClientLayout({
   children,
@@ -17,6 +16,7 @@ export default function ClientLayout({
         expanded={sidebarExpanded} 
         setExpanded={setSidebarExpanded} 
       />
+      
       <main 
         className={`flex-1 transition-all duration-300 ${
           sidebarExpanded ? 'lg:ml-64' : 'lg:ml-20'
