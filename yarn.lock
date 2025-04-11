@@ -801,6 +801,7 @@
     aria-hidden "^1.2.4"
     react-remove-scroll "^2.6.3"
 
+<<<<<<< HEAD
 "@radix-ui/react-popover@^1.1.7":
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-popover/-/react-popover-1.1.7.tgz#4397a5c1a4b2c03efe350cf467a8ddd720115c39"
@@ -822,6 +823,8 @@
     aria-hidden "^1.2.4"
     react-remove-scroll "^2.6.3"
 
+=======
+>>>>>>> ea8a2a3c4fe2e4543e2bb0854ca8c53bb10dcd83
 "@radix-ui/react-popper@1.2.2":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-popper/-/react-popper-1.2.2.tgz#d2e1ee5a9b24419c5936a1b7f6f472b7b412b029"
@@ -980,13 +983,38 @@
   dependencies:
     "@radix-ui/react-compose-refs" "1.1.1"
 
+<<<<<<< HEAD
 "@radix-ui/react-slot@1.2.0", "@radix-ui/react-slot@^1.2.0":
+=======
+"@radix-ui/react-slot@1.2.0":
+>>>>>>> ea8a2a3c4fe2e4543e2bb0854ca8c53bb10dcd83
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-slot/-/react-slot-1.2.0.tgz#57727fc186ddb40724ccfbe294e1a351d92462ba"
   integrity sha512-ujc+V6r0HNDviYqIK3rW4ffgYiZ8g5DEHrGJVk4x7kTlLXRDILnKX9vAUYeIsLOoDpDJ0ujpqMkjH4w2ofuo6w==
   dependencies:
     "@radix-ui/react-compose-refs" "1.1.2"
 
+<<<<<<< HEAD
+=======
+"@radix-ui/react-toast@^1.2.7":
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-toast/-/react-toast-1.2.7.tgz#57954e88061c20f12a9c6ac7cbd532d2c3ca1186"
+  integrity sha512-0IWTbAUKvzdpOaWDMZisXZvScXzF0phaQjWspK8RUMEUxjLbli+886mB/kXTIC3F+t5vQ0n0vYn+dsX8s+WdfA==
+  dependencies:
+    "@radix-ui/primitive" "1.1.2"
+    "@radix-ui/react-collection" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-dismissable-layer" "1.1.6"
+    "@radix-ui/react-portal" "1.1.5"
+    "@radix-ui/react-presence" "1.1.3"
+    "@radix-ui/react-primitive" "2.0.3"
+    "@radix-ui/react-use-callback-ref" "1.1.1"
+    "@radix-ui/react-use-controllable-state" "1.1.1"
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+    "@radix-ui/react-visually-hidden" "1.1.3"
+
+>>>>>>> ea8a2a3c4fe2e4543e2bb0854ca8c53bb10dcd83
 "@radix-ui/react-use-callback-ref@1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-use-callback-ref/-/react-use-callback-ref-1.1.0.tgz#bce938ca413675bc937944b0d01ef6f4a6dc5bf1"
@@ -1074,6 +1102,13 @@
   integrity sha512-1SzA4ns2M1aRlvxErqhLHsBHoS5eI5UUcI2awAMgGUp4LoaoWOKYmvqDY2s/tltuPkh3Yk77YF/r3IRj+Amx4Q==
   dependencies:
     "@radix-ui/react-primitive" "2.0.2"
+
+"@radix-ui/react-visually-hidden@1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-visually-hidden/-/react-visually-hidden-1.1.3.tgz#f704c49121859941a8bb50ff1e4f156058cacd0b"
+  integrity sha512-oXSF3ZQRd5fvomd9hmUCb2EHSZbPp3ZSHAHJJU/DlF9XoFkJBBW8RHU/E8WEH+RbSfJd/QFA0sl8ClJXknBwHQ==
+  dependencies:
+    "@radix-ui/react-primitive" "2.0.3"
 
 "@radix-ui/rect@1.1.0":
   version "1.1.0"
