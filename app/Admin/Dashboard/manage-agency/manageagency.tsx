@@ -703,6 +703,9 @@ export default function ManageAgencySignup() {
           )}
         </div>
       </div>
+      <div className="text-xs text-gray-500 mt-8">
+        © 2023, Made by <span className="text-emerald-500">Trekking Miles</span>.
+      </div>
     </div>
   )
 }
