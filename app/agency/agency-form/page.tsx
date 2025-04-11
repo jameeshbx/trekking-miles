@@ -1,6 +1,6 @@
 import AgencyForm from "./agency-form"; 
 
-export default function Login() {
+export default function agencyform() {
   return (
      <div className="">
         <AgencyForm />
