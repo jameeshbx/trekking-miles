@@ -186,12 +186,8 @@ const Sidebar = ({ expanded }: SidebarProps) => {
 
   return (
     <aside
-<<<<<<< HEAD
       className={`fixed inset-y-0 left-0 z-40 h-full bg-white shadow-lg transition-all duration-300 ${
         isMobile ? 'w-16' : expanded ? 'w-64' : 'w-20'
-=======
-      className={`fixed inset-y-0 left-0 z-40 h-full bg-white shadow-lg transition-all duration-300 ${isMobile ? 'w-16' : expanded ? 'w-64' : 'w-20'
->>>>>>> ea8a2a3c4fe2e4543e2bb0854ca8c53bb10dcd83
       }`}
       data-cy="sidebar"
     >
@@ -280,12 +276,8 @@ const Sidebar = ({ expanded }: SidebarProps) => {
                   }`}
                   data-cy={`sidebar-item-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
                 >
-<<<<<<< HEAD
                   <span className="mr-2">{item.icon}</span>
                   {!isCollapsed && <span className="text-sm md:text-lg">{item.title}</span>}
-=======
-                  <span className="mr-2">{item.icon}</span>{!isCollapsed && <span className="text-sm md:text-lg">{item.title}</span>}
->>>>>>> ea8a2a3c4fe2e4543e2bb0854ca8c53bb10dcd83
                   {(isMobile || isCollapsed) && hoveredItem === item.title && (
                     <div className="absolute left-full ml-2 px-2 py-1 bg-gray-800 text-white text-xs md:text-sm rounded whitespace-nowrap">
                       {item.title}
