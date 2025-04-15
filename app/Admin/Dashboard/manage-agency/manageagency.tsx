@@ -145,7 +145,7 @@ export default function ManageAgencySignup() {
   // Generate page numbers for pagination
   const getPageNumbers = () => {
     const pages = []
-    const maxVisiblePages = screenSize === "sm" ? 2 : screenSize === "md" ? 3 : 5
+    const maxVisiblePages = screenSize === "sm" ? 3 : screenSize === "md" ? 3 : 5
 
     if (totalPages <= maxVisiblePages) {
       for (let i = 1; i <= totalPages; i++) {
@@ -263,7 +263,7 @@ export default function ManageAgencySignup() {
       {/* Search and Filters */}
       <div className="flex flex-col gap-2 mb-4">
         <div className="flex flex-col sm:flex-row gap-2">
-          <div className="relative w-full sm:w-auto">
+          <div className="relative w-full">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               id="search-input"
@@ -274,143 +274,143 @@ export default function ManageAgencySignup() {
             />
           </div>
 
-          <div className="relative inline-block w-full sm:w-auto">
-            <Button
-              variant="outline"
-              className="bg-green-600 text-white hover:bg-green-700 border-0 h-9 sm:h-10 flex sm:w-auto items-center gap-1 w-full justify-between text-xs sm:text-sm"
-              onClick={() => setShowStatusFilter(!showStatusFilter)}
-            >
-              <div className="flex items-center gap-1">
-                <Filter className="h-3 w-3 sm:h-4 sm:w-4" />
-                <span className={screenSize === "sm" ? "text-xs" : "text-sm"}>
-                  {screenSize === "sm" ? "Filter" : "Request Status"}
-                </span>
-              </div>
-              <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4" />
-            </Button>
-            {showStatusFilter && (
-              <div className="absolute z-10 mt-1 w-full sm:w-[200px] bg-white border border-gray-200 rounded-md shadow-lg">
-                <div className="p-2 border-b border-gray-200">
-                  <div className="text-xs sm:text-sm text-gray-500">Filter Status</div>
+          <div className="flex gap-2 w-full sm:w-auto">
+            <div className="relative inline-block w-full sm:w-auto">
+              <Button
+                variant="outline"
+                className="bg-green-600 text-white hover:bg-green-700 border-0 h-9 sm:h-10 flex items-center gap-1 w-full sm:w-auto justify-between text-xs sm:text-sm"
+                onClick={() => setShowStatusFilter(!showStatusFilter)}
+              >
+                <div className="flex items-center gap-1">
+                  <Filter className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span>{screenSize === "sm" ? "Filter" : "Request Status"}</span>
                 </div>
-                <div className="p-2">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="approved"
-                      checked={selectedStatuses.Approved}
-                      onCheckedChange={(checked) => handleStatusChange("Approved", !!checked)}
-                      className="scale-75 sm:scale-100"
-                    />
-                    <label htmlFor="approved" className="text-xs sm:text-sm">
-                      Approved
-                    </label>
+                <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4" />
+              </Button>
+              {showStatusFilter && (
+                <div className="absolute z-10 mt-1 w-full sm:w-[200px] bg-white border border-gray-200 rounded-md shadow-lg">
+                  <div className="p-2 border-b border-gray-200">
+                    <div className="text-xs sm:text-sm text-gray-500">Filter Status</div>
                   </div>
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Checkbox
-                      id="pending"
-                      checked={selectedStatuses.Pending}
-                      onCheckedChange={(checked) => handleStatusChange("Pending", !!checked)}
-                      className="scale-75 sm:scale-100"
-                    />
-                    <label htmlFor="pending" className="text-xs sm:text-sm">
-                      Pending
-                    </label>
+                  <div className="p-2">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Checkbox
+                        id="approved"
+                        checked={selectedStatuses.Approved}
+                        onCheckedChange={(checked) => handleStatusChange("Approved", !!checked)}
+                        className="scale-75 sm:scale-100"
+                      />
+                      <label htmlFor="approved" className="text-xs sm:text-sm">
+                        Approved
+                      </label>
+                    </div>
+                    <div className="flex items-center space-x-2 mb-2">
+                      <Checkbox
+                        id="pending"
+                        checked={selectedStatuses.Pending}
+                        onCheckedChange={(checked) => handleStatusChange("Pending", !!checked)}
+                        className="scale-75 sm:scale-100"
+                      />
+                      <label htmlFor="pending" className="text-xs sm:text-sm">
+                        Pending
+                      </label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="rejected"
+                        checked={selectedStatuses.Rejected}
+                        onCheckedChange={(checked) => handleStatusChange("Rejected", !!checked)}
+                        className="scale-75 sm:scale-100"
+                      />
+                      <label htmlFor="rejected" className="text-xs sm:text-sm">
+                        Rejected
+                      </label>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="rejected"
-                      checked={selectedStatuses.Rejected}
-                      onCheckedChange={(checked) => handleStatusChange("Rejected", !!checked)}
-                      className="scale-75 sm:scale-100"
-                    />
-                    <label htmlFor="rejected" className="text-xs sm:text-sm">
-                      Rejected
-                    </label>
+                  <div className="p-2 border-t border-gray-200 flex justify-between">
+                    <Button
+                      variant="default"
+                      className="bg-green-600 hover:bg-green-700 text-xs h-7 sm:h-8"
+                      onClick={applyStatusFilters}
+                    >
+                      Apply
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      className="text-xs h-7 sm:h-8"
+                      onClick={() => {
+                        resetStatusFilters()
+                        setShowStatusFilter(false)
+                      }}
+                    >
+                      Reset
+                    </Button>
                   </div>
                 </div>
-                <div className="p-2 border-t border-gray-200 flex justify-between">
+              )}
+            </div>
+
+            <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="h-9 sm:h-10 flex items-center gap-1 border-gray-300 text-xs sm:text-sm w-full sm:w-auto"
+                >
+                  <CalendarIcon className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" />
+                  <span className="text-xs sm:text-sm truncate">{formatDateRange()}</span>
+                  {screenSize !== "sm" && <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4 ml-1 text-gray-500" />}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0 border-gray-200 shadow-lg" align="start">
+                <div className="p-2 sm:p-3 border-b border-gray-100 bg-gray-50">
+                  <h3 className="text-xs sm:text-sm font-medium">Select Date Range</h3>
+                </div>
+                <Calendar
+                  initialFocus
+                  mode="range"
+                  defaultMonth={dateRange.from}
+                  selected={dateRange}
+                  onSelect={(range) => {
+                    if (range?.from) {
+                      setDateRange({
+                        from: range.from,
+                        to: range.to || range.from,
+                      })
+                      if (range.to) {
+                        setCalendarOpen(false)
+                      }
+                    }
+                  }}
+                  numberOfMonths={1}
+                  className="p-2 sm:p-3"
+                />
+                <div className="flex items-center justify-between p-2 sm:p-3 border-t border-gray-100 bg-gray-50">
                   <Button
-                    variant="default"
-                    className="bg-green-600 hover:bg-green-700 text-xs h-7 sm:h-8"
-                    onClick={applyStatusFilters}
-                  >
-                    Apply
-                  </Button>
-                  <Button
-                    variant="ghost"
+                    variant="outline"
+                    size="sm"
                     className="text-xs h-7 sm:h-8"
                     onClick={() => {
-                      resetStatusFilters()
-                      setShowStatusFilter(false)
+                      setDateRange({
+                        from: new Date("2025-03-28"),
+                        to: new Date("2025-04-10"),
+                      })
                     }}
                   >
                     Reset
                   </Button>
+                  <Button
+                    size="sm"
+                    className="bg-green-600 hover:bg-green-700 text-xs h-7 sm:h-8"
+                    onClick={() => setCalendarOpen(false)}
+                  >
+                    Apply
+                  </Button>
                 </div>
-              </div>
-            )}
+              </PopoverContent>
+            </Popover>
           </div>
 
-          <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                className="h-9 sm:h-10 flex items-center gap-1 border-gray-300 text-xs sm:text-sm"
-              >
-                <CalendarIcon className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" />
-                <span className="text-xs sm:text-sm truncate">{formatDateRange()}</span>
-                <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4 ml-1 text-gray-500" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0 border-gray-200 shadow-lg" align="start">
-              <div className="p-2 sm:p-3 border-b border-gray-100 bg-gray-50">
-                <h3 className="text-xs sm:text-sm font-medium">Select Date Range</h3>
-              </div>
-              <Calendar
-                initialFocus
-                mode="range"
-                defaultMonth={dateRange.from}
-                selected={dateRange}
-                onSelect={(range) => {
-                  if (range?.from) {
-                    setDateRange({
-                      from: range.from,
-                      to: range.to || range.from,
-                    })
-                    if (range.to) {
-                      setCalendarOpen(false)
-                    }
-                  }
-                }}
-                numberOfMonths={1}
-                className="p-2 sm:p-3"
-              />
-              <div className="flex items-center justify-between p-2 sm:p-3 border-t border-gray-100 bg-gray-50">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="text-xs h-7 sm:h-8"
-                  onClick={() => {
-                    setDateRange({
-                      from: new Date("2025-03-28"),
-                      to: new Date("2025-04-10"),
-                    })
-                  }}
-                >
-                  Reset
-                </Button>
-                <Button
-                  size="sm"
-                  className="bg-green-600 hover:bg-green-700 text-xs h-7 sm:h-8"
-                  onClick={() => setCalendarOpen(false)}
-                >
-                  Apply
-                </Button>
-              </div>
-            </PopoverContent>
-          </Popover>
-
-          <div className="flex ml-auto gap-2">
+          <div className="flex gap-2 ml-auto">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -418,10 +418,14 @@ export default function ManageAgencySignup() {
                   size="sm"
                   className="h-9 sm:h-10 flex items-center gap-1 border-gray-300 text-xs sm:text-sm"
                 >
-                  <span className={screenSize === "sm" ? "text-xs" : "text-sm"}>
-                    {screenSize === "sm" ? "Sort" : "Sort by"}
-                  </span>
-                  <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500" />
+                  {screenSize === "sm" ? (
+                    <span>Sort</span>
+                  ) : (
+                    <>
+                      <span>Sort by</span>
+                      <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500" />
+                    </>
+                  )}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-36 sm:w-48">
@@ -466,7 +470,7 @@ export default function ManageAgencySignup() {
           <table className="w-full border-collapse table-auto">
             <thead>
               <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="p-2 sm:p-3 text-left w-8 sm:w-10">
+                <th className="p-2 text-left w-8 sm:w-10">
                   <Checkbox checked={selectAll} onCheckedChange={(checked) => handleSelectAll(!!checked)} />
                 </th>
                 {screenSize !== "sm" && (

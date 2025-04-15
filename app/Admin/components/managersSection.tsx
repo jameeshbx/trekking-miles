@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-
+import Image from "next/image"
 import { useState, useEffect } from "react"
 import {
   Search,
@@ -182,25 +182,25 @@ export default function ManagerSection() {
               <SelectContent>
                 <SelectItem value="+91">
                   <div className="flex items-center">
-                    <img src="https://flagcdn.com/w20/in.png" alt="India" className="h-4 mr-1" />
+                    <Image src="https://flagcdn.com/w20/in.png" alt="India" className="h-4 mr-1" />
                     <span>+91</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="+1">
                   <div className="flex items-center">
-                    <img src="https://flagcdn.com/w20/us.png" alt="USA" className="h-4 mr-1" />
+                  <Image src="https://flagcdn.com/w20/us.png" alt="USA" className="h-4 mr-1" />
                     <span>+1</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="+44">
                   <div className="flex items-center">
-                    <img src="https://flagcdn.com/w20/gb.png" alt="UK" className="h-4 mr-1" />
+                  <Image src="https://flagcdn.com/w20/gb.png" alt="UK" className="h-4 mr-1" />
                     <span>+44</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="+61">
                   <div className="flex items-center">
-                    <img src="https://flagcdn.com/w20/au.png" alt="Australia" className="h-4 mr-1" />
+                  <Image src="https://flagcdn.com/w20/au.png" alt="Australia" className="h-4 mr-1" />
                     <span>+61</span>
                   </div>
                 </SelectItem>
