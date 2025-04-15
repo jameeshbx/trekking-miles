@@ -12,17 +12,9 @@ export default function ClientLayout({
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <Sidebar 
-        expanded={sidebarExpanded} 
-        setExpanded={setSidebarExpanded} 
-      />
-      
-      <main 
-        className={`flex-1 transition-all duration-300 ${
-          sidebarExpanded ? 'lg:ml-64' : 'lg:ml-20'
-        } ml-16`}
-      >
-        <div className="p-4 md:p-6 lg:p-8 max-w-screen-2xl mx-auto">
+      <Sidebar expanded={sidebarExpanded} setExpanded={setSidebarExpanded} />
+      <main className={`flex-1 transition-all duration-300 ${sidebarExpanded ? 'lg:ml-64' : 'lg:ml-20'} ml-16`}>
+        <div className="p-4 md:p-6 lg:p-8">
           {children}
         </div>
       </main>
