@@ -253,7 +253,7 @@ export default function Dmcsignup() {
                     <Checkbox
                       id="approved"
                       checked={selectedRequestStatuses.Approved}
-                      onChange={(e) => setSelectedRequestStatuses((prev) => ({ ...prev, Approved: e.target.checked }))}
+                      onChange={(e) => setSelectedRequestStatuses((prev) => ({ ...prev, Approved: (e.target as HTMLInputElement).checked }))}
                     />
                     <label htmlFor="approved" className="text-sm">
                       Approved
@@ -263,7 +263,7 @@ export default function Dmcsignup() {
                     <Checkbox
                       id="pending"
                       checked={selectedRequestStatuses.Pending}
-                      onChange={(e) => setSelectedRequestStatuses((prev) => ({ ...prev, Pending: e.target.checked }))}
+                      onChange={(e) => setSelectedRequestStatuses((prev) => ({ ...prev, Pending: (e.target as HTMLInputElement).checked }))}
                     />
                     <label htmlFor="pending" className="text-sm">
                       Pending
@@ -273,7 +273,7 @@ export default function Dmcsignup() {
                     <Checkbox
                       id="rejected"
                       checked={selectedRequestStatuses.Rejected}
-                      onChange={(e) => setSelectedRequestStatuses((prev) => ({ ...prev, Rejected: e.target.checked }))}
+                      onChange={(e) => setSelectedRequestStatuses((prev) => ({ ...prev, Rejected: (e.target as HTMLInputElement).checked }))}
                     />
                     <label htmlFor="rejected" className="text-sm">
                       Rejected
@@ -405,7 +405,7 @@ export default function Dmcsignup() {
             <thead>
               <tr className="bg-gray-50 border-b border-gray-200">
                 <th className="p-3 text-left w-10">
-                  <Checkbox checked={selectAll} onChange={(e) => handleSelectAll(e.target.checked)} />
+                  <Checkbox checked={selectAll} onChange={(e) => handleSelectAll((e.target as HTMLInputElement).checked)} />
                 </th>
                 <th className="p-3 text-left font-medium text-sm">Request ID</th>
                 <th className="p-3 text-left font-medium text-sm">Name</th>
@@ -423,7 +423,7 @@ export default function Dmcsignup() {
                   <td className="p-3">
                     <Checkbox
                       checked={selectedItems[request.id] || false}
-                      onChange={(e) => handleSelectItem(request.id, e.target.checked)}
+                      onChange={(e) => handleSelectItem(request.id, (e.target as HTMLInputElement).checked)}
                     />
                   </td>
                   <td className="p-3 text-sm">{request.id}</td>
@@ -497,7 +497,7 @@ export default function Dmcsignup() {
                 <thead>
                   <tr className="bg-gray-50 border-b border-gray-200">
                     <th className="p-2 text-left w-10">
-                      <Checkbox checked={selectAll} onChange={(e) => handleSelectAll(e.target.checked)} />
+                      <Checkbox checked={selectAll} onChange={(e) => handleSelectAll((e.target as HTMLInputElement).checked)} />
                     </th>
                     <th className="p-2 text-left font-medium text-sm">Name</th>
                     <th className="p-2 text-left font-medium text-sm">DMC Name</th>
@@ -511,7 +511,7 @@ export default function Dmcsignup() {
                       <td className="p-2">
                         <Checkbox
                           checked={selectedItems[request.id] || false}
-                          onChange={(e) => handleSelectItem(request.id, e.target.checked)}
+                          onChange={(e) => handleSelectItem(request.id, (e.target as HTMLInputElement).checked)}
                         />
                       </td>
                       <td className="p-2 text-sm font-medium">
