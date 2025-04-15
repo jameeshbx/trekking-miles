@@ -829,6 +829,10 @@
     aria-hidden "^1.2.4"
     react-remove-scroll "^2.6.3"
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 1a4c5606da69ee87e775f55c9cfca5b5bf09acba
 "@radix-ui/react-popover@^1.1.7":
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-popover/-/react-popover-1.1.7.tgz#4397a5c1a4b2c03efe350cf467a8ddd720115c39"
@@ -850,6 +854,11 @@
     aria-hidden "^1.2.4"
     react-remove-scroll "^2.6.3"
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> ea8a2a3c4fe2e4543e2bb0854ca8c53bb10dcd83
+>>>>>>> 1a4c5606da69ee87e775f55c9cfca5b5bf09acba
 "@radix-ui/react-popper@1.2.2":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-popper/-/react-popper-1.2.2.tgz#d2e1ee5a9b24419c5936a1b7f6f472b7b412b029"
@@ -1008,13 +1017,23 @@
   dependencies:
     "@radix-ui/react-compose-refs" "1.1.1"
 
+<<<<<<< HEAD
 "@radix-ui/react-slot@1.2.0", "@radix-ui/react-slot@^1.2.0":
+=======
+<<<<<<< HEAD
+"@radix-ui/react-slot@1.2.0", "@radix-ui/react-slot@^1.2.0":
+=======
+"@radix-ui/react-slot@1.2.0":
+>>>>>>> ea8a2a3c4fe2e4543e2bb0854ca8c53bb10dcd83
+>>>>>>> 1a4c5606da69ee87e775f55c9cfca5b5bf09acba
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-slot/-/react-slot-1.2.0.tgz#57727fc186ddb40724ccfbe294e1a351d92462ba"
   integrity sha512-ujc+V6r0HNDviYqIK3rW4ffgYiZ8g5DEHrGJVk4x7kTlLXRDILnKX9vAUYeIsLOoDpDJ0ujpqMkjH4w2ofuo6w==
   dependencies:
     "@radix-ui/react-compose-refs" "1.1.2"
 
+<<<<<<< HEAD
+=======
 "@radix-ui/react-toast@^1.2.7":
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-toast/-/react-toast-1.2.7.tgz#57954e88061c20f12a9c6ac7cbd532d2c3ca1186"
@@ -1033,6 +1052,7 @@
     "@radix-ui/react-use-layout-effect" "1.1.1"
     "@radix-ui/react-visually-hidden" "1.1.3"
 
+>>>>>>> ea8a2a3c4fe2e4543e2bb0854ca8c53bb10dcd83
 "@radix-ui/react-use-callback-ref@1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-use-callback-ref/-/react-use-callback-ref-1.1.0.tgz#bce938ca413675bc937944b0d01ef6f4a6dc5bf1"
@@ -2996,7 +3016,11 @@ data-view-byte-offset@^1.0.1:
     es-errors "^1.3.0"
     is-data-view "^1.0.1"
 
+<<<<<<< HEAD
 date-fns@*, date-fns@^4.1.0:
+=======
+date-fns@^4.1.0:
+>>>>>>> 1a4c5606da69ee87e775f55c9cfca5b5bf09acba
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-4.1.0.tgz#64b3d83fff5aa80438f5b1a633c2e83b8a1c2d14"
   integrity sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==
