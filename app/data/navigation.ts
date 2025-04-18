@@ -19,7 +19,7 @@ export interface BreadcrumbItem {
       title: "Dashboard",
       subtitle: "Overview and summary",
     },
-    "/admin/dashboard": {
+    "/admin/Dashboard": {
       breadcrumbs: [
         { label: "Pages", href: "/admin" },
         { label: "Dashboard", href: "/dashboard", active: true },
@@ -27,21 +27,29 @@ export interface BreadcrumbItem {
       title: "Manage Users",
       subtitle: "Add or manage details",
     },
-    "/admin/users": {
+    "/admin/Dashboard/manage-subscription": {
       breadcrumbs: [
         { label: "Pages", href: "/admin" },
-        { label: "Users", href: "/users", active: true },
+        { label: "Dashboard", href: "/dashboard", active: true },
       ],
-      title: "User Management",
-      subtitle: "View and manage system users",
+      title: "Manage Subscriptions",
+      subtitle: "Add or manage details",
     },
-    "/admin/settings": {
+    "/admin/Dashboard/add-managers": {
       breadcrumbs: [
         { label: "Pages", href: "/admin" },
-        { label: "Settings", href: "/settings", active: true },
+        { label: "managers", href: "/dashboard", active: true },
       ],
-      title: "Settings",
-      subtitle: "Configure your application",
+      title: "Manage Users",
+      subtitle: "Add or manage details",
+    },
+    "/admin/Dashboard/Manage-DMC": {
+      breadcrumbs: [
+        { label: "Pages", href: "/admin" },
+        { label: "DMC", href: "/dashboard", active: true },
+      ],
+      title: "Manage Agency Signups",
+      subtitle: "Add or manage details",
     },
   }
   
