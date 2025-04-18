@@ -42,6 +42,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
     Paid: true,
     Pending: true,
     Failed: true,
+    "Not Required": true,
   })
   const [showPaymentStatusFilter, setShowPaymentStatusFilter] = useState(false)
   const [showPlanFilter, setShowPlanFilter] = useState(false)
@@ -261,7 +262,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                       Pending
                     </label>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 mb-2">
                     <Checkbox
                       id="failed"
                       checked={selectedPaymentStatuses.Failed}
@@ -269,6 +270,18 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                     />
                     <label htmlFor="failed" className="text-sm">
                       Failed
+                    </label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="not-required"
+                      checked={selectedPaymentStatuses["Not Required"]}
+                      onChange={(e) =>
+                        setSelectedPaymentStatuses((prev) => ({ ...prev, "Not Required": e.target.checked }))
+                      }
+                    />
+                    <label htmlFor="not-required" className="text-sm">
+                      Not Required
                     </label>
                   </div>
                 </div>
@@ -284,7 +297,12 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                     variant="ghost"
                     className="text-xs h-8"
                     onClick={() => {
-                      setSelectedPaymentStatuses({ Paid: true, Pending: true, Failed: true })
+                      setSelectedPaymentStatuses({
+                        Paid: true,
+                        Pending: true,
+                        Failed: true,
+                        "Not Required": true,
+                      })
                     }}
                   >
                     Reset
@@ -304,7 +322,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
               <ChevronDown className="h-4 w-4" />
             </Button>
             {showPlanFilter && (
-              <div className="absolute z-10 mt-1 w-full sm:w-[200px] bg-white border border-gray-200 rounded-md shadow-lg">
+              <div className="absolute z-10 mt-1 w-full sm:w-52 bg-white border border-gray-200 rounded-md shadow-lg">
                 <div className="p-2 border-b border-gray-200">
                   <div className="text-sm text-gray-500">Filter Plan</div>
                 </div>
@@ -518,7 +536,10 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                   <th className="p-3 text-left font-medium text-sm font-Poppins" style={{ width: "10%" }}>
                     Contact Name
                   </th>
-                  <th className="p-3 text-left font-medium text-sm hidden md:table-cell font-Poppins" style={{ width: "8%" }}>
+                  <th
+                    className="p-3 text-left font-medium text-sm hidden md:table-cell font-Poppins"
+                    style={{ width: "8%" }}
+                  >
                     Phone no.
                   </th>
                   <th className="p-3 text-left font-medium text-sm font-Poppins" style={{ width: "12%" }}>
@@ -586,7 +607,11 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                           className={`h-2 w-2 ${subscription.subscriptionStatus === "Active" ? "text-green-500" : subscription.subscriptionStatus === "Inactive" ? "text-red-500" : "text-blue-500"}`}
                           fill="currentColor"
                         />
-                        <span className="text-sm">{subscription.subscriptionStatus}</span>
+                        <span
+                          className={`text-sm px-2 py-1 rounded-md ${getSubscriptionStatusColor(subscription.subscriptionStatus)}`}
+                        >
+                          {subscription.subscriptionStatus}
+                        </span>
                       </div>
                     </td>
                     <td className="p-3 text-sm">{subscription.trialStatus}</td>
@@ -675,7 +700,11 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                         className={`h-2 w-2 ${subscription.subscriptionStatus === "Active" ? "text-green-500" : subscription.subscriptionStatus === "Inactive" ? "text-red-500" : "text-blue-500"}`}
                         fill="currentColor"
                       />
-                      <span className="text-sm">{subscription.subscriptionStatus}</span>
+                      <span
+                        className={`text-sm px-2 py-1 rounded-md ${getSubscriptionStatusColor(subscription.subscriptionStatus)}`}
+                      >
+                        {subscription.subscriptionStatus}
+                      </span>
                     </div>
                   </td>
                   <td className="p-3">
@@ -796,7 +825,11 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                           }`}
                           fill="currentColor"
                         />
-                        {subscription.subscriptionStatus}
+                        <span
+                          className={`px-1 py-0.5 rounded-md ${getSubscriptionStatusColor(subscription.subscriptionStatus)}`}
+                        >
+                          {subscription.subscriptionStatus}
+                        </span>
                       </span>
                     </div>
                   </div>
@@ -884,14 +917,30 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
 
 // Helper function to get the color for payment status
 function getPaymentStatusColor(status: string): string {
-    switch (status) {
-        case "Paid":
-            return "bg-green-500 text-white";
-        case "Pending":
-            return "bg-yellow-500 text-white";
-        case "Failed":
-            return "bg-red-500 text-white";
-        default:
-            return "bg-gray-500 text-white";
-    }
+  switch (status) {
+    case "Paid":
+      return "bg-custom-green text-white"
+    case "Pending":
+      return "bg-yellow-500 text-white"
+    case "Failed":
+      return "bg-red-500 text-white"
+    case "Not Required":
+      return "bg-white text-gray-700"
+    default:
+      return "bg-gray-500 text-white"
+  }
+}
+
+// Helper function to get the background color for subscription status
+function getSubscriptionStatusColor(status: string): string {
+  switch (status) {
+    case "Active":
+      return "bg-custom-green text-white"
+    case "Inactive":
+      return "bg-gray-300 text-black"
+    case "Trial Active":
+      return "bg-custom-green text-white"
+    default:
+      return ""
+  }
 }
