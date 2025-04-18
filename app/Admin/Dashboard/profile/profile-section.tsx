@@ -1,29 +1,18 @@
-
 "use client"
 
 import type React from "react"
 import Image from 'next/image';
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Eye, Facebook, Twitter, Instagram } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dailog"
 import { profileData, accountData, teamMembers, commentData } from "@/app/data/profile"
 
 export default function ProfilePage() {
   const [showComments, setShowComments] = useState(false)
-  const [selectedAdmin, setSelectedAdmin] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [commentText, setCommentText] = useState("")
-  const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 0)
-
-  // Track window width for responsive adjustments
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth)
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
 
   // Function to handle image errors and provide fallback
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
@@ -35,8 +24,6 @@ export default function ProfilePage() {
     setCommentText("")
   }
 
-
-  const isSpecificBreakpoint = windowWidth >= 1060 && windowWidth <= 1070
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -165,26 +152,27 @@ export default function ProfilePage() {
 
         {/* Team Section */}
         <div className="p-6 bg-white rounded-lg shadow-md md:col-span-2 lg:col-span-1">
-  <div className="flex items-center gap-2 mb-4">
-    <Image
-      src="/background/Icon.svg"
-      alt="Team icon"
-      width={16}  // Matches w-4 (4×4=16px)
-      height={16}
-      className="w-4 h-4"
-    />
-    <h2 className="text-lg font-bold">TEAM</h2>
-  </div>
-
+          <div className="flex items-center gap-2 mb-4">
+            <Image
+              src="/background/Icon.svg"
+              alt="Team icon"
+              width={16}
+              height={16}
+              className="w-4 h-4"
+            />
+            <h2 className="text-lg font-bold">TEAM</h2>
+          </div>
 
           <div className="space-y-4">
             {teamMembers.map((member) => (
               <div key={member.id} className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className={`h-10 w-10 rounded-full overflow-hidden ${member.avatarColor}`}>
-                    <img
+                    <Image
                       src={member.avatarUrl || "/placeholder.svg"}
                       alt={member.name}
+                      width={40}
+                      height={40}
                       className="h-full w-full object-cover"
                       onError={handleImageError}
                     />
@@ -195,9 +183,11 @@ export default function ProfilePage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-5 h-5">
-                      <img
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Apple%20Notes%20Application-mbm8F1MEGXz9ETv0fzN0lCy3EEwtKa.png"
+                      <Image
+                        src="/background/Apple Notes Application (1).png"
                         alt="Notes"
+                        width={20}
+                        height={20}
                         className="w-full h-full object-contain"
                       />
                     </div>
@@ -205,7 +195,6 @@ export default function ProfilePage() {
                       variant="ghost"
                       className="h-6 text-xs text-teal-500 hover:text-teal-600 hover:bg-transparent"
                       onClick={() => {
-                        setSelectedAdmin(member.id)
                         setShowComments(true)
                       }}
                     >
@@ -216,7 +205,7 @@ export default function ProfilePage() {
               </div>
             ))}
           </div>
-          </div>
+        </div>
       </div>
 
       {/* Comments Dialog */}
@@ -226,9 +215,11 @@ export default function ProfilePage() {
           <div className="border rounded-lg p-4 mt-2">
             <div className="flex items-start gap-3 mb-4">
               <div className="h-10 w-10 rounded-full overflow-hidden flex-shrink-0">
-                <img
+                <Image
                   src={commentData.authorAvatar || "/placeholder.svg"}
                   alt={commentData.author}
+                  width={40}
+                  height={40}
                   className="h-full w-full object-cover"
                   onError={handleImageError}
                 />
@@ -240,13 +231,13 @@ export default function ProfilePage() {
 
             {/* New Comment Input */}
             <div className="mt-4 space-y-2">
-            <textarea
-  value={commentText}
-  onChange={(e) => setCommentText(e.target.value)}
-  className="w-full p-2 rounded-md text-sm focus:ring-2 focus:ring-light-green focus:outline-none bg-transparent"
-  rows={3}
-  placeholder="Write your comment here..."
-/>
+              <textarea
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
+                className="w-full p-2 rounded-md text-sm focus:ring-2 focus:ring-light-green focus:outline-none bg-transparent"
+                rows={3}
+                placeholder="Write your comment here..."
+              />
               <div className="flex justify-center gap-2">
                 <Button onClick={handlePostComment} className="bg-light-green hover:bg-light-green text-white">
                   Comment
