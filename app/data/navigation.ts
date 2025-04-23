@@ -38,7 +38,7 @@ export interface BreadcrumbItem {
     "/admin/Dashboard/add-managers": {
       breadcrumbs: [
         { label: "Pages", href: "/admin" },
-        { label: "managers", href: "/dashboard", active: true },
+        { label: "Dashboard", href: "/dashboard", active: true },
       ],
       title: "Manage Users",
       subtitle: "Add or manage details",
@@ -46,9 +46,25 @@ export interface BreadcrumbItem {
     "/admin/Dashboard/Manage-DMC": {
       breadcrumbs: [
         { label: "Pages", href: "/admin" },
-        { label: "DMC", href: "/dashboard", active: true },
+        { label: "Dashboard", href: "/dashboard", active: true },
       ],
       title: "Manage Agency Signups",
+      subtitle: "Add or manage details",
+    },
+    "/admin/Dashboard/profile": {
+      breadcrumbs: [
+        { label: "Pages", href: "/admin" },
+        { label: "Dashboard", href: "/dashboard", active: true },
+      ],
+      title: "Profile",
+      subtitle: "Profile",
+    },
+    "/agency/Dashboard/add-users": {
+      breadcrumbs: [
+        { label: "Pages", href: "/agency" },
+        { label: "Dashboard", href: "/dashboard", active: true },
+      ],
+      title: "Manage Users",
       subtitle: "Add or manage details",
     },
   }

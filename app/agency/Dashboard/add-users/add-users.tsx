@@ -26,17 +26,17 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Badge } from "@/components/ui/badge"
-import { managers } from "@/app/data/managersData"
+import { users } from "@/app/data/userData"
 import { toast } from "@/components/ui/use-toast"
 import { Toaster } from "@/components/ui/toaster"
 
-export default function ManagerSection() {
+export default function AddUsers() {
   const [searchQuery, setSearchQuery] = useState("")
   const [currentPage, setCurrentPage] = useState(1) // Start at page 1 instead of 4
   const [showPassword, setShowPassword] = useState<Record<string, boolean>>({})
   const [sortBy, setSortBy] = useState("name")
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
-  const [displayedManagers, setDisplayedManagers] = useState(managers.slice(0, 3)) // Initialize with first 3 managers
+  const [displayedUsers, setDisplayedUsers] = useState(users.slice(0, 3)) // Initialize with first 3 users
   const [uploadedFile, setUploadedFile] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     name: "",
@@ -51,17 +51,17 @@ export default function ManagerSection() {
 
   // Items per page
   const itemsPerPage = 3
-  const totalPages = Math.ceil(managers.length / itemsPerPage)
+  const totalPages = Math.ceil(users.length / itemsPerPage)
 
   // Handle pagination, filtering, and sorting
   useEffect(() => {
     // Apply filtering
-    let filtered = managers.filter(
-      (manager) =>
-        manager.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        manager.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        manager.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        manager.userId.toLowerCase().includes(searchQuery.toLowerCase()),
+    let filtered = users.filter(
+      (user) =>
+        user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.userId.toLowerCase().includes(searchQuery.toLowerCase()),
     )
 
     // Apply sorting
@@ -78,13 +78,13 @@ export default function ManagerSection() {
 
     // Calculate pagination
     const startIndex = (currentPage - 1) * itemsPerPage
-    const paginatedManagers = filtered.slice(startIndex, startIndex + itemsPerPage)
+    const paginatedUsers = filtered.slice(startIndex, startIndex + itemsPerPage)
 
-    // Update state with the filtered, sorted, and paginated managers
-    setDisplayedManagers(paginatedManagers)
+    // Update state with the filtered, sorted, and paginated users
+    setDisplayedUsers(paginatedUsers)
 
     // If current page is out of bounds after filtering, go to page 1
-    if (paginatedManagers.length === 0 && filtered.length > 0) {
+    if (paginatedUsers.length === 0 && filtered.length > 0) {
       setCurrentPage(1)
     }
   }, [currentPage, searchQuery, sortBy, sortOrder])
@@ -111,7 +111,7 @@ export default function ManagerSection() {
     console.log("Form submitted:", formData)
     toast({
       title: "Form submitted",
-      description: "Manager has been added successfully",
+      description: "User has been added successfully",
     })
     // Reset form after submission
     setFormData({
@@ -132,7 +132,7 @@ export default function ManagerSection() {
   const handleDownload = () => {
     toast({
       title: "Downloaded",
-      description: "Manager data has been downloaded successfully",
+      description: "User data has been downloaded successfully",
     })
   }
 
@@ -182,25 +182,37 @@ export default function ManagerSection() {
               <SelectContent>
                 <SelectItem value="+91">
                   <div className="flex items-center">
-                    <Image src="https://flagcdn.com/w20/in.png" alt="India" className="h-4 mr-1" width={20} height={14} />
+                    <Image
+                      src="https://flagcdn.com/w20/in.png"
+                      alt="India"
+                      className="h-4 mr-1"
+                      width={20}
+                      height={14}
+                    />
                     <span>+91</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="+1">
                   <div className="flex items-center">
-                  <Image src="https://flagcdn.com/w20/us.png" alt="USA" className="h-4 mr-1" width={20} height={14} />
+                    <Image src="https://flagcdn.com/w20/us.png" alt="USA" className="h-4 mr-1" width={20} height={14} />
                     <span>+1</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="+44">
                   <div className="flex items-center">
-                  <Image src="https://flagcdn.com/w20/gb.png" alt="UK" className="h-4 mr-1" width={20} height={14} />
+                    <Image src="https://flagcdn.com/w20/gb.png" alt="UK" className="h-4 mr-1" width={20} height={14} />
                     <span>+44</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="+61">
                   <div className="flex items-center">
-                  <Image src="https://flagcdn.com/w20/au.png" alt="Australia" className="h-4 mr-1" width={20} height={14} />
+                    <Image
+                      src="https://flagcdn.com/w20/au.png"
+                      alt="Australia"
+                      className="h-4 mr-1"
+                      width={20}
+                      height={14}
+                    />
                     <span>+61</span>
                   </div>
                 </SelectItem>
@@ -365,30 +377,30 @@ export default function ManagerSection() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {displayedManagers.length > 0 ? (
-                displayedManagers.map((manager, index) => (
+              {displayedUsers.length > 0 ? (
+                displayedUsers.map((user, index) => (
                   <TableRow
-                    key={manager.userId}
-                    data-testid={`manager-row-${manager.userId}`}
+                    key={user.userId}
+                    data-testid={`user-row-${user.userId}`}
                     className={index % 2 === 0 ? "bg-white" : "bg-gray-50/50 border-0"}
                   >
                     <TableCell className="py-3">
-                      <Checkbox id={`select-${manager.userId}`} />
+                      <Checkbox id={`select-${user.userId}`} />
                     </TableCell>
-                    <TableCell className="py-3 font-medium font-poppins">{manager.userId}</TableCell>
-                    <TableCell className="py-3 font-poppins">{manager.name}</TableCell>
-                    <TableCell className="py-3 font-poppins hidden md:table-cell">{manager.phone}</TableCell>
-                    <TableCell className="py-3 font-poppins hidden sm:table-cell">{manager.email}</TableCell>
-                    <TableCell className="py-3 font-poppins hidden lg:table-cell">{manager.username}</TableCell>
+                    <TableCell className="py-3 font-medium font-poppins">{user.userId}</TableCell>
+                    <TableCell className="py-3 font-poppins">{user.name}</TableCell>
+                    <TableCell className="py-3 font-poppins hidden md:table-cell">{user.phone}</TableCell>
+                    <TableCell className="py-3 font-poppins hidden sm:table-cell">{user.email}</TableCell>
+                    <TableCell className="py-3 font-poppins hidden lg:table-cell">{user.username}</TableCell>
                     <TableCell className="py-3 font-poppins hidden lg:table-cell">
                       <div className="flex items-center space-x-2">
-                        <span>{showPassword[manager.userId] ? manager.password : "•••••••"}</span>
+                        <span>{showPassword[user.userId] ? user.password : "•••••••"}</span>
                         <button
                           type="button"
-                          onClick={() => togglePasswordVisibility(manager.userId)}
+                          onClick={() => togglePasswordVisibility(user.userId)}
                           className="text-gray-500"
                         >
-                          {showPassword[manager.userId] ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                          {showPassword[user.userId] ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                         </button>
                       </div>
                     </TableCell>
@@ -396,12 +408,12 @@ export default function ManagerSection() {
                       <Badge
                         variant="outline"
                         className={`px-3 py-1 rounded-full text-xs font-medium ${
-                          manager.status === "Active"
+                          user.status === "Active"
                             ? "bg-green-800 hover:bg-green-800 text-white border-0"
                             : "bg-gray-200 hover:bg-gray-200 text-gray-700 border-0"
                         }`}
                       >
-                        {manager.status}
+                        {user.status}
                       </Badge>
                     </TableCell>
                     <TableCell className="py-3">
@@ -437,7 +449,7 @@ export default function ManagerSection() {
               ) : (
                 <TableRow>
                   <TableCell colSpan={9} className="text-center py-6 text-gray-500 font-poppins">
-                    No managers found. Try adjusting your search criteria.
+                    No users found. Try adjusting your search criteria.
                   </TableCell>
                 </TableRow>
               )}
