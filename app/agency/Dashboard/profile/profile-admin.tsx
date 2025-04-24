@@ -6,7 +6,6 @@ import { useState } from "react"
 import Image from "next/image"
 import { Eye, Facebook, Twitter, Instagram } from "lucide-react"
 import { HexColorPicker } from "react-colorful"
-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
@@ -443,7 +442,7 @@ export default function ProfilePage() {
                   Cancel
                 </Button>
                 <Button onClick={handlePostComment} className="bg-emerald-500 hover:bg-emerald-600 text-white text-sm">
-                  Save Note
+                  comment
                 </Button>
               </div>
             </div>
