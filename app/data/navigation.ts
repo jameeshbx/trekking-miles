@@ -67,6 +67,14 @@ export interface BreadcrumbItem {
       title: "Manage Users",
       subtitle: "Add or manage details",
     },
+    "/agency/Dashboard/add-dmc": {
+      breadcrumbs: [
+        { label: "Pages", href: "/agency" },
+        { label: "Dashboard", href: "/dashboard", active: true },
+      ],
+      title: "Manage DMC",
+      subtitle: "Add or manage details",
+    },
   }
   
   export function getNavigationData(path: string) {
