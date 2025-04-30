@@ -59,6 +59,14 @@ export interface BreadcrumbItem {
       title: "Profile",
       subtitle: "Profile",
     },
+    "/admin/Dashboard/add-DMC": {
+      breadcrumbs: [
+        { label: "Pages", href: "/admin" },
+        { label: "Dashboard", href: "/dashboard", active: true },
+      ],
+      title: "Manage DMC",
+      subtitle: "Add or manage details",
+    },
     "/agency/Dashboard/add-users": {
       breadcrumbs: [
         { label: "Pages", href: "/agency" },
@@ -74,6 +82,14 @@ export interface BreadcrumbItem {
       ],
       title: "Manage DMC",
       subtitle: "Add or manage details",
+    },
+    "/agency/Dashboard/profile": {
+      breadcrumbs: [
+        { label: "Pages", href: "/agency" },
+        { label: "Dashboard", href: "/dashboard", active: true },
+      ],
+      title: "Profile",
+      subtitle: "Profile",
     },
   }
   
