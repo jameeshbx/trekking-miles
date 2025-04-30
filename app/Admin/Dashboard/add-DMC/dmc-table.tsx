@@ -178,7 +178,7 @@ export function DMCTable() {
                       </Badge>
                     </TableCell>
                     <TableCell className="py-3">
-                    <DropdownMenu>
+                        <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="icon" className="h-8 w-8">
                           <MoreVertical className="h-4 w-4" />

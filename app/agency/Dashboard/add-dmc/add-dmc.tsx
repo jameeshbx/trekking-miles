@@ -477,22 +477,22 @@ export function DMCRegistrationForm() {
         </div>
 
         {/* Year of Experience */}
-        <div className="space-y-2 w-full">
-          <label htmlFor="yearOfExperience" className="block text-sm font-medium text-gray-700 font-Poppins">
-            Year of Registration
-          </label>
-          <div className="relative">
-            <Input
-              id="yearOfExperience"
-              name="yearOfExperience"
-              value={formData.yearOfRegistration}
-              onChange={handleInputChange}
-              className="w-full h-12 focus:border-emerald-500 hover:border-emerald-500 transition-colors"
-            />
-            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-gray-100 px-2 py-1 rounded text-sm text-gray-600 font-Poppins">
-              Years
+            <div className="space-y-2 w-full">
+             <label htmlFor="yearOfExperience" className="block text-sm font-medium text-gray-700 font-Poppins">
+                Year of Experience
+              </label>
+              <div className="relative">
+                <Input
+                  id="yearOfExperience"
+                  name="yearOfExperience"
+                  value={formData.yearOfExperience}
+                  onChange={handleInputChange}
+                  className="w-full h-12 focus:border-emerald-500 hover:border-emerald-500 transition-colors"
+                />
+                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-gray-100 px-2 py-1 rounded text-sm text-gray-600 font-Poppins">
+                  Years
+              </div>
             </div>
-          </div>
         </div>
 
         {/* Business Registration / Registration Certificate - Fixed alignment */}
