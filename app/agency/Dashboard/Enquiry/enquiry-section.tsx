@@ -145,66 +145,40 @@ export default function Enquiry() {
   }
 
   const onDragEnd = (result: DropResult) => {
-    const { destination, source } = result // Removed draggableId here
+    const { destination, source } = result
   
     if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
       return
     }
 
     setColumns((prevColumns) => {
-        const newColumns = JSON.parse(JSON.stringify(prevColumns))
-        const sourceColIndex = newColumns.findIndex((col: Column) => col.id === source.droppableId)
-        const destColIndex = newColumns.findIndex((col: Column) => col.id === destination.droppableId)
-    
-        if (sourceColIndex === -1 || destColIndex === -1) {
-          return prevColumns
-        }
-    
-        const movedItem = newColumns[sourceColIndex].enquiries[source.index]
-        newColumns[sourceColIndex].enquiries.splice(source.index, 1)
-    
-        const updatedItem = {
-          ...movedItem,
-          status: destination.droppableId as EnquiryType["status"],
-        }
-    
-        newColumns[destColIndex].enquiries.splice(destination.index, 0, updatedItem)
-    
-        if (source.droppableId !== destination.droppableId) {
-          toast.success("Enquiry Updated", {
-            description: `${movedItem.name}'s enquiry moved to ${newColumns[destColIndex].title}`,
-          })
-        }
-    
-        return newColumns
-      })
-    }
+      const newColumns = JSON.parse(JSON.stringify(prevColumns))
+      const sourceColIndex = newColumns.findIndex((col: Column) => col.id === source.droppableId)
+      const destColIndex = newColumns.findIndex((col: Column) => col.id === destination.droppableId)
 
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      const newPosition = Math.max(0, scrollPosition - 1)
-      setScrollPosition(newPosition)
-      scrollContainerRef.current.scrollTo({
-        left: newPosition * 240,
-        behavior: "smooth",
-      })
-    }
+      if (sourceColIndex === -1 || destColIndex === -1) {
+        return prevColumns
+      }
+
+      const movedItem = newColumns[sourceColIndex].enquiries[source.index]
+      newColumns[sourceColIndex].enquiries.splice(source.index, 1)
+
+      const updatedItem = {
+        ...movedItem,
+        status: destination.droppableId as EnquiryType["status"],
+      }
+
+      newColumns[destColIndex].enquiries.splice(destination.index, 0, updatedItem)
+
+      if (source.droppableId !== destination.droppableId) {
+        toast.success("Enquiry Updated", {
+          description: `${movedItem.name}'s enquiry moved to ${newColumns[destColIndex].title}`,
+        })
+      }
+
+      return newColumns
+    })
   }
-
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      const maxScroll = columns.length - 5
-      const newPosition = Math.min(maxScroll, scrollPosition + 1)
-      setScrollPosition(newPosition)
-      scrollContainerRef.current.scrollTo({
-        left: newPosition * 240,
-        behavior: "smooth",
-      })
-    }
-  }
-
-  const canScrollLeft = scrollPosition > 0
-  const canScrollRight = scrollPosition < columns.length - 5
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col w-full overflow-x-hidden">
@@ -237,26 +211,6 @@ export default function Enquiry() {
 
       {/* Columns area */}
       <div className="relative flex-1 p-2 sm:p-4">
-        {canScrollLeft && (
-          <button
-            onClick={scrollLeft}
-            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-50 transition-colors"
-            aria-label="Scroll left"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-        )}
-
-        {canScrollRight && (
-          <button
-            onClick={scrollRight}
-            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-50 transition-colors"
-            aria-label="Scroll right"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-        )}
-
         <div
           ref={scrollContainerRef}
           className="flex gap-3 sm:gap-4 overflow-x-auto pb-4 scrollbar-hide scroll-smooth px-2"
