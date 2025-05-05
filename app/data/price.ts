@@ -29,6 +29,7 @@ export const pricingData = {
         "Custom branding & client collaboration",
       ],
     },
+    
   }
   
   export const pricingHeader = {
