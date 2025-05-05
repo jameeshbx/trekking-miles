@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { signOut } from "next-auth/react";
 
 type MenuItem = {
   title: string;
@@ -48,7 +49,7 @@ const Sidebar = ({ expanded }: SidebarProps) => {
       href: '/admin/daboard',
       icon: (
         <Image
-          src="/dash.svg" 
+          src="/dash.svg"
           alt="Dashboard"
           width={20}
           height={20}
@@ -61,7 +62,7 @@ const Sidebar = ({ expanded }: SidebarProps) => {
       href: '/admin/login-requests',
       icon: (
         <Image
-          src="/login.svg" 
+          src="/login.svg"
           alt="Login Requests"
           width={20}
           height={20}
@@ -70,8 +71,8 @@ const Sidebar = ({ expanded }: SidebarProps) => {
       ),
       isDropdown: true,
       dropdownItems: [
-        { 
-          name: 'DMC', 
+        {
+          name: 'DMC',
           href: '/admin/login-requests/dmc',
           logo: (
             <Image
@@ -83,8 +84,8 @@ const Sidebar = ({ expanded }: SidebarProps) => {
             />
           )
         },
-        { 
-          name: 'Other Agency', 
+        {
+          name: 'Other Agency',
           href: '/admin/login-requests/other',
           logo: (
             <Image
@@ -103,7 +104,7 @@ const Sidebar = ({ expanded }: SidebarProps) => {
       href: '/admin/advisors',
       icon: (
         <Image
-          src="/subscription.svg" 
+          src="/subscription.svg"
           alt="Advisors"
           width={20}
           height={20}
@@ -116,7 +117,7 @@ const Sidebar = ({ expanded }: SidebarProps) => {
       href: '/admin/users',
       icon: (
         <Image
-          src="/manage.svg" 
+          src="/manage.svg"
           alt="Manage Users"
           width={20}
           height={20}
@@ -125,11 +126,11 @@ const Sidebar = ({ expanded }: SidebarProps) => {
       ),
     },
     {
-      title:'Add DMC',
-      href:'/admin/add dmc',
-      icon:(
+      title: 'Add DMC',
+      href: '/admin/add dmc',
+      icon: (
         <Image
-          src="/Vector.svg" 
+          src="/Vector.svg"
           alt="Manage Users"
           width={20}
           height={20}
@@ -145,7 +146,7 @@ const Sidebar = ({ expanded }: SidebarProps) => {
       href: '/admin/profile',
       icon: (
         <Image
-          src="/profile.svg" 
+          src="/profile.svg"
           alt="Profile"
           width={20}
           height={20}
@@ -158,7 +159,7 @@ const Sidebar = ({ expanded }: SidebarProps) => {
       href: '/admin/settings',
       icon: (
         <Image
-          src="/settings.svg" 
+          src="/settings.svg"
           alt="Settings"
           width={20}
           height={20}
@@ -168,16 +169,17 @@ const Sidebar = ({ expanded }: SidebarProps) => {
     },
     {
       title: 'Logout',
-      href: '/',
+      href: '#',
       icon: (
         <Image
-          src="/logout.svg" 
+          src="/logout.svg"
           alt="Logout"
           width={20}
           height={20}
           className="min-w-[20px]"
         />
       ),
+      onClick: () => signOut({ callbackUrl: '/' }),
     },
   ];
 
@@ -186,46 +188,45 @@ const Sidebar = ({ expanded }: SidebarProps) => {
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-40 h-full bg-white shadow-lg transition-all duration-300 ${
-        isMobile ? 'w-16' : expanded ? 'w-64' : 'w-20'
-      }`}
+      className={`fixed inset-y-0 left-0 z-40 h-full bg-white shadow-lg transition-all duration-300 ${isMobile ? 'w-16' : expanded ? 'w-64' : 'w-20'
+        }`}
       data-cy="sidebar"
     >
       <div className="flex flex-col h-full p-2 md:p-4 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
         {/* Logo Section */}
         <div className="flex items-center justify-center p-2 mb-4">
-  {isMobile ? (
-    <Image 
-      src="/logo trekking.png"
-      alt="Company Logo"
-      width={64}  // Size for mobile
-      height={64}
-      priority
-      className="mx-auto"
-      data-cy="sidebar-logo"
-    />
-  ) : isCollapsed ? (
-    <Image 
-      src="/logo trekking.png"
-      alt="Company Logo"
-      width={80}  // Increased size for tablet collapsed view (from 48 to 80)
-      height={80}
-      priority
-      className="mx-auto"
-      data-cy="sidebar-logo"
-    />
-  ) : (
-    <Image 
-      src="/logo trekking.png" 
-      alt="Company Logo"
-      width={120}
-      height={60}
-      className="mb-2"
-      priority
-      data-cy="sidebar-logo"
-    />
-  )}
-</div>
+          {isMobile ? (
+            <Image
+              src="/logo trekking.png"
+              alt="Company Logo"
+              width={64}  // Size for mobile
+              height={64}
+              priority
+              className="mx-auto"
+              data-cy="sidebar-logo"
+            />
+          ) : isCollapsed ? (
+            <Image
+              src="/logo trekking.png"
+              alt="Company Logo"
+              width={80}  // Increased size for tablet collapsed view (from 48 to 80)
+              height={80}
+              priority
+              className="mx-auto"
+              data-cy="sidebar-logo"
+            />
+          ) : (
+            <Image
+              src="/logo trekking.png"
+              alt="Company Logo"
+              width={120}
+              height={60}
+              className="mb-2"
+              priority
+              data-cy="sidebar-logo"
+            />
+          )}
+        </div>
 
         <nav className="flex-1 space-y-1">
           {menuItems.map((item) => (
@@ -236,11 +237,10 @@ const Sidebar = ({ expanded }: SidebarProps) => {
                     onClick={toggleLoginRequests}
                     onMouseEnter={() => setHoveredItem(item.title)}
                     onMouseLeave={() => setHoveredItem(null)}
-                    className={`flex items-center w-full p-2 md:p-3 rounded-lg transition-colors ${
-                      pathname.startsWith("/admin/login-requests")
-                        ? "bg-blue-100 text-blue-600"
-                        : "text-gray-700 hover:bg-gray-100"
-                    }`}
+                    className={`flex items-center w-full p-2 md:p-3 rounded-lg transition-colors ${pathname.startsWith("/admin/login-requests")
+                      ? "bg-blue-100 text-blue-600"
+                      : "text-gray-700 hover:bg-gray-100"
+                      }`}
                     data-cy={`sidebar-item-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
                   >
                     <span className="mr-2">{item.icon}</span>
@@ -264,11 +264,10 @@ const Sidebar = ({ expanded }: SidebarProps) => {
                         <Link
                           key={dropdownItem.href}
                           href={dropdownItem.href}
-                          className={`flex items-center px-3 py-1 md:px-4 md:py-2 text-sm md:text-xl rounded-lg ${
-                            pathname === dropdownItem.href
-                              ? "bg-blue-100 text-blue-600"
-                              : "text-gray-700 hover:bg-gray-100"
-                          }`}
+                          className={`flex items-center px-3 py-1 md:px-4 md:py-2 text-sm md:text-xl rounded-lg ${pathname === dropdownItem.href
+                            ? "bg-blue-100 text-blue-600"
+                            : "text-gray-700 hover:bg-gray-100"
+                            }`}
                           data-cy={`sidebar-dropdown-item-${dropdownItem.name.toLowerCase().replace(/\s+/g, "-")}`}
                         >
                           {dropdownItem.logo}
@@ -283,9 +282,8 @@ const Sidebar = ({ expanded }: SidebarProps) => {
                   href={item.href}
                   onMouseEnter={() => setHoveredItem(item.title)}
                   onMouseLeave={() => setHoveredItem(null)}
-                  className={`flex items-center p-2 md:p-3 rounded-lg transition-colors ${
-                    pathname === item.href ? "bg-blue-100 text-blue-600" : "text-gray-700 hover:bg-gray-100"
-                  }`}
+                  className={`flex items-center p-2 md:p-3 rounded-lg transition-colors ${pathname === item.href ? "bg-blue-100 text-blue-600" : "text-gray-700 hover:bg-gray-100"
+                    }`}
                   data-cy={`sidebar-item-${item.title.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   <span className="mr-2">{item.icon}</span>
@@ -307,24 +305,41 @@ const Sidebar = ({ expanded }: SidebarProps) => {
               </h3>
             )}
             {accountItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onMouseEnter={() => setHoveredItem(item.title)}
-                onMouseLeave={() => setHoveredItem(null)}
-                className={`flex items-center p-2 md:p-3 rounded-lg transition-colors ${
-                  pathname === item.href ? "bg-blue-100 text-blue-600" : "text-gray-700 hover:bg-gray-100"
-                }`}
-                data-cy={`sidebar-account-item-${item.title.toLowerCase()}`}
-              >
-                <span className="mr-2">{item.icon}</span>
-                {!isCollapsed && <span className="text-sm md:text-lg font-poppins">{item.title}</span>}
-                {(isMobile || isCollapsed) && hoveredItem === item.title && (
-                  <div className="absolute left-full ml-2 px-2 py-1 bg-gray-800 text-white text-xs md:text-sm rounded whitespace-nowrap">
-                    {item.title}
-                  </div>
-                )}
-              </Link>
+              item.title === 'Logout' ? (
+                <button
+                  key={item.href}
+                  onClick={item.onClick}
+                  onMouseEnter={() => setHoveredItem(item.title)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                  className={`flex items-center w-full p-2 md:p-3 rounded-lg transition-colors text-gray-700 hover:bg-gray-100`}
+                  data-cy={`sidebar-account-item-${item.title.toLowerCase()}`}
+                >
+                  <span className="mr-2">{item.icon}</span>
+                  {!isCollapsed && <span className="text-sm md:text-lg font-poppins">{item.title}</span>}
+                  {(isMobile || isCollapsed) && hoveredItem === item.title && (
+                    <div className="absolute left-full ml-2 px-2 py-1 bg-gray-800 text-white text-xs md:text-sm rounded whitespace-nowrap">
+                      {item.title}
+                    </div>
+                  )}
+                </button>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onMouseEnter={() => setHoveredItem(item.title)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                  className={`flex items-center p-2 md:p-3 rounded-lg transition-colors ${pathname === item.href ? "bg-blue-100 text-blue-600" : "text-gray-700 hover:bg-gray-100"}`}
+                  data-cy={`sidebar-account-item-${item.title.toLowerCase()}`}
+                >
+                  <span className="mr-2">{item.icon}</span>
+                  {!isCollapsed && <span className="text-sm md:text-lg font-poppins">{item.title}</span>}
+                  {(isMobile || isCollapsed) && hoveredItem === item.title && (
+                    <div className="absolute left-full ml-2 px-2 py-1 bg-gray-800 text-white text-xs md:text-sm rounded whitespace-nowrap">
+                      {item.title}
+                    </div>
+                  )}
+                </Link>
+              )
             ))}
           </div>
         </nav>

@@ -33,20 +33,28 @@ enum UserType {
   DMC
 }
 
+enum BusinessType {
+  TEKKING_MYLES
+  AGENCY
+  DMC
+}
+
 model User {
-  id        String   @id @default(uuid())
-  name      String 
-  email     String   @unique
-  password  String
-  role      Role
-  userType  UserType
-  isOnline  Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  agency    Agency?  @relation(fields: [agencyId], references: [id])
-  agencyId  String?
-  dmc       DMC?     @relation(fields: [dmcId], references: [id])
-  dmcId     String?
+  id           String       @id @default(cuid())
+  email        String       @unique
+  password     String
+  name         String?
+  companyName  String
+  businessType BusinessType
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  role         Role         @default(USER)
+  userType     UserType
+  isOnline     Boolean      @default(false)
+  agency       Agency?      @relation(fields: [agencyId], references: [id])
+  agencyId     String?
+  dmc          DMC?         @relation(fields: [dmcId], references: [id])
+  dmcId        String?
 
   passwordResets PasswordReset[]
 

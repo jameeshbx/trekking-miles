@@ -1,12 +1,32 @@
 "use client"
+
 import Image from "next/image"
 import Link from "next/link"
-import { ChevronDown, Info, X, ArrowLeft } from "lucide-react"
+import { Eye, X, ArrowLeft } from "lucide-react"
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation"
+import { z } from "zod"
+import { toast } from "sonner"
 
-export default function SignupPage() {
+const userTypes = ["TEKKING_MYLES", "AGENCY", "DMC"] as const
+
+const signupSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  companyName: z.string().min(2, "Company name must be at least 2 characters"),
+  userType: z.enum(userTypes, {
+    required_error: "Please select a user type",
+  }),
+})
+
+type SignupFormData = z.infer<typeof signupSchema>
+
+export default function SignupForm() {
   const [isMobile, setIsMobile] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     const checkIfMobile = () => {
@@ -21,12 +41,55 @@ export default function SignupPage() {
     }
   }, [])
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsLoading(true)
+
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+      companyName: formData.get("companyName") as string,
+      userType: formData.get("userType") as SignupFormData["userType"],
+    }
+
+    try {
+      const validatedData = signupSchema.parse(data)
+
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(validatedData),
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.message || "Something went wrong")
+      }
+
+      toast.success("Account created successfully!")
+      router.push("/login")
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        toast.error(error.errors[0].message)
+      } else if (error instanceof Error) {
+        toast.error(error.message)
+      } else {
+        toast.error("Something went wrong")
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
-    <div className="relative w-full overflow-hidden py-6 px-4 sm:px-6 lg:px-8 bg-custom-green z-[10] min-h-screen bg-custom-green flex items-center justify-center p-4">
-      {/* Background Image */}
+    <div className="relative w-full overflow-hidden py-6 px-4 sm:px-6 lg:px-8 bg-custom-green z-[10]">
       <div className="absolute inset-0 -z-[10]">
         <Image
-          src="/img/login/Group 1171275952 (1).svg"
+          src="/img/login/Group 1171275929.svg"
           alt=""
           fill
           className="object-cover opacity-100"
@@ -34,181 +97,313 @@ export default function SignupPage() {
         />
       </div>
 
-      {/* Dynamic Back/Close Button */}
-      {isMobile ? (
+      {!isMobile && (
         <Link
           href="/"
-          className="absolute  top-8 right-6 bg-emerald-800 rounded-full p-2 border-2 border-white z-50 cursor-pointer hover:bg-emerald-700 transition-colors"
-        >
-          <X className="h-5 w-5 text-white " />
-        </Link>
-      ) : (
-        <Link
-          href="/"
-          className="absolute top-5 left-5 bg-emerald-800 rounded-full p-2 border-2 border-white z-50 cursor-pointer hover:bg-emerald-700 transition-colors"
+          className="absolute top-5 left-5 bg-custom-green rounded-full p-2 border-2 border-white z-50 cursor-pointer hover:bg-emerald-800 transition-colors"
         >
           <ArrowLeft className="h-5 w-5 text-white rotate-[-320deg]" />
         </Link>
       )}
 
-      {/* Main container - responsive sizing */}
-      <div className={`w-full ${isMobile ? 'max-w-md' : 'max-w-5xl'} flex flex-col lg:flex-row overflow-hidden rounded-lg shadow-lg`}>
-        {/* Left section - Green background */}
-        <div className={`relative bg-greenook text-white ${isMobile ? 'p-6' : 'lg:w-5/12 p-6 lg:p-8'} flex flex-col`}>
-          <div className="relative z-10">
-            <div className="mb-6">
-              <div className="flex items-center mb-1">
+      {isMobile && (
+        <Link
+          href="/"
+          className="absolute top-5 right-5 bg-custom-green rounded-full p-2 border-2 border-white z-50 cursor-pointer hover:bg-custom-green transition-colors"
+        >
+          <X className="h-5 w-5 text-white" />
+        </Link>
+      )}
+
+      <div className="relative z-10 flex items-center justify-center min-h-screen p-4 py-8">
+        {!isMobile ? (
+          <div className="mx-auto flex w-full max-w-5xl flex-col overflow-hidden rounded-lg shadow-lg md:flex-row">
+            <div className="relative w-full bg-greenook p-8 md:p-10 md:w-1/2">
+              <div className="absolute -left-8 -bottom-6 z-0">
                 <Image
-                  src="/img/login/cropped-logo-1_1567c4bc-84c5-4188-81e0-d5dd9ed8ef8d (1) 1.svg"
-                  alt="Trekking Miles Logo"
-                  width={isMobile ? 120 : 140}
-                  height={isMobile ? 60 : 80}
-                  className={isMobile ? "w-40" : "w-56"}
+                  src="/img/login/Group 1171275832.svg"
+                  alt="Decorative dot pattern"
+                  width={200}
+                  height={200}
+                  className="opacity-80"
                 />
               </div>
-              <div className="text-xs text-white/80 font-nunito">a sustainable tourism initiative</div>
-            </div>
-            <div className="mt-auto">
-              <h1 className={`${isMobile ? 'text-xl' : 'text-2xl lg:text-3xl'} font-bold mb-2 font-poppins`}>
-                Start your remarkable journey with us!
-              </h1>
-              <p className="text-sm opacity-90 font-poppins">Seamless Access to Your Travel Business Hub</p>
-            </div>
-          </div>
-
-          {/* Background dot pattern */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/img/login/Group 1171275949.svg"
-              alt="Decorative background"
-              fill
-              className="object-cover opacity-100"
-              priority
-            />
-          </div>
-        </div>
-
-        {/* Right section - Form */}
-        <div className={`bg-white ${isMobile ? 'p-6' : 'lg:w-7/12 p-6 lg:p-8'} flex items-center justify-center`}>
-          <div className="w-full max-w-md">
-            <div className="text-center mb-6">
-              <h2 className={`${isMobile ? 'text-xl' : 'text-2xl'} font-bold mb-2 font-poppins`}>Sign up with free trail</h2>
-              <p className="text-gray-600 text-sm font-poppins">Empower your experience, sign up for a free account today</p>
-            </div>
-
-            <form className="space-y-4">
-              {/* Form fields remain the same but with responsive spacing */}
-              <div className="space-y-1">
-                <label htmlFor="name" className="block text-sm font-medium font-poppins">
-                  Name<span className="text-red-500">*</span>
-                </label>
-                <input
-                  id="name"
-                  placeholder="Johan Smith"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-800"
+              <div className="absolute -right-10 -top-2 z-0">
+                <Image
+                  src="/img/login/Group 1171275833.svg"
+                  alt="Decorative dot pattern"
+                  width={100}
+                  height={100}
+                  className="opacity-80"
                 />
               </div>
 
-              <div className="space-y-1">
-                <label htmlFor="phone" className="block text-sm font-medium flex items-center font-poppins">
-                  Phone number<span className="text-red-500">*</span>
-                  <span className="ml-1 text-gray-400">
-                    <Info className="h-4 w-4" />
-                  </span>
-                </label>
-                <div className="flex">
-                  <div className="relative">
-                    <select className="h-10 rounded-l-md border border-r-0 border-gray-300 bg-white px-3 py-2 text-sm appearance-none pr-8 font-poppins">
-                      <option>+91</option>
-                      
-                    </select>
-                    <ChevronDown className="h-4 w-4 absolute right-2 top-3 pointer-events-none text-gray-500" />
-                  </div>
-                  <input
-                    id="phone"
-                    placeholder="Enter phone number"
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-r-md focus:outline-none focus:ring-2 focus:ring-emerald-800 h-10 "
+              <div className="relative z-10">
+                <div className="flex items-center justify-center md:justify-start">
+                  <Image
+                    src="/img/login/cropped-logo-1_1567c4bc-84c5-4188-81e0-d5dd9ed8ef8d (1) 1.svg"
+                    alt="Trekking Miles Logo"
+                    width={300}
+                    height={80}
+                    className="object-contain"
                   />
-                  <div className="ml-2 flex items-center">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M16.6663 5L7.49967 14.1667L3.33301 10"
-                        stroke="#10B981"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                </div>
+
+                <h1 className="mt-8 md:mt-12 lg-mt-[-30] text-3xl font-nunito md:text-4xl font-semibold text-white text-center md:text-left">
+                  Join Trekking Miles Today!
+                </h1>
+
+                <p className="mt-4 md:mt-6 text-base md:text-lg text-white/90 text-center md:text-left text-sans font-normal">
+                  Create your account and start your journey
+                </p>
+              </div>
+            </div>
+
+            <div className="relative w-full bg-white p-6 md:p-8 lg:p-12 md:w-1/2 z-30">
+              <div className="mx-auto max-w-md">
+                <h2 className="mb-6 md:mb-8 md:text-lg lg:text-4xl font-nunito font-bold text-gray-900 text-center">
+                  Create Account <span className="inline-block">🚀</span>
+                </h2>
+
+                <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
+                  <div className="space-y-2">
+                    <label htmlFor="name" className="block text-sm font-semibold text-gray-700">
+                      Full Name*
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="Enter your full name"
+                      required
+                      className="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="block text-sm font-semibold text-gray-700">
+                      Email*
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="Enter your email"
+                      required
+                      className="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="companyName" className="block text-sm font-semibold text-gray-700">
+                      Company Name*
+                    </label>
+                    <input
+                      id="companyName"
+                      name="companyName"
+                      type="text"
+                      placeholder="Enter your company name"
+                      required
+                      className="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="userType" className="block text-sm font-semibold text-gray-700">
+                      User Type*
+                    </label>
+                    <select
+                      id="userType"
+                      name="userType"
+                      required
+                      className="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    >
+                      <option value="">Select user type</option>
+                      {userTypes.map((type) => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="password" className="block text-sm font-semibold text-gray-700">
+                      Password*
+                    </label>
+                    <div className="relative">
+                      <input
+                        id="password"
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter password"
+                        required
+                        className="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
                       />
-                    </svg>
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                        aria-label="Toggle password visibility"
+                      >
+                        <Eye className="h-5 w-5" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full rounded-full bg-greenook px-4 py-3 font-medium text-white hover:bg-greenook focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isLoading ? "Creating account..." : "Create Account"}
+                  </button>
+
+                  <div className="text-center text-sm text-gray-700">
+                    Already have an account?{" "}
+                    <Link href="/login" className="font-medium text-greenook hover:text-greenook">
+                      Login
+                    </Link>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        ) : (
+          // Mobile layout
+          <div className="w-full max-w-md">
+            <div className="bg-greenook p-6 rounded-t-lg relative overflow-hidden z-20">
+              <div className="relative z-30">
+                <div className="flex justify-center mb-4">
+                  <Image
+                    src="/img/login/cropped-logo-1_1567c4bc-84c5-4188-81e0-d5dd9ed8ef8d (1) 1.svg"
+                    alt="Trekking Miles Logo"
+                    width={180}
+                    height={60}
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+
+                <h1 className="text-xl font-semibold text-white text-center font-nunito">
+                  Join Trekking Miles Today!
+                </h1>
+
+                <p className="mt-2 text-sm text-white/90 text-center font-normal font-poppins">
+                  Create your account and start your journey
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-b-lg z-30">
+              <h2 className="mb-4 text-xl font-bold text-center lg:text-4xl font-nunito">
+                Create Account <span className="inline-block">🚀</span>
+              </h2>
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="name-mobile" className="block text-sm text-gray-700 mb-1 font-semibold">
+                    Full Name*
+                  </label>
+                  <input
+                    id="name-mobile"
+                    name="name"
+                    type="text"
+                    placeholder="Enter your full name"
+                    required
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email-mobile" className="block text-sm text-gray-700 mb-1 font-semibold">
+                    Email*
+                  </label>
+                  <input
+                    id="email-mobile"
+                    name="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    required
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="companyName-mobile" className="block text-sm text-gray-700 mb-1 font-semibold">
+                    Company Name*
+                  </label>
+                  <input
+                    id="companyName-mobile"
+                    name="companyName"
+                    type="text"
+                    placeholder="Enter your company name"
+                    required
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="userType-mobile" className="block text-sm text-gray-700 mb-1 font-semibold">
+                    User Type*
+                  </label>
+                  <select
+                    id="userType-mobile"
+                    name="userType"
+                    required
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                  >
+                    <option value="">Select user type</option>
+                    {userTypes.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="password-mobile" className="block text-sm text-gray-700 mb-1 font-semibold">
+                    Password*
+                  </label>
+                  <div className="relative">
+                    <input
+                      id="password-mobile"
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Enter password"
+                      required
+                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                      aria-label="Toggle password visibility"
+                    >
+                      <Eye className="h-5 w-5" />
+                    </button>
                   </div>
                 </div>
-              </div>
 
-              <div className="space-y-1">
-                <label htmlFor="email" className="block text-sm font-medium font-poppins">
-                  Email<span className="text-red-500">*</span>
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="ex. email@domain.com"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-800"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label htmlFor="company" className="block text-sm font-medium font-poppins">
-                  Company Name<span className="text-red-500">*</span>
-                </label>
-                <input
-                  id="company"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-800"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label htmlFor="business-type" className="block text-sm font-medium font-poppins">
-                  Business Type<span className="text-red-500">*</span>
-                </label>
-                <div className="relative">
-                  <select
-                    id="business-type"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-emerald-800 font-poppins"
-                  >
-                    <option>AGENCY</option>
-                    <option>DMSC</option>
-                  </select>
-                  <ChevronDown className="h-4 w-4 absolute right-3 top-3 pointer-events-none text-gray-500" />
-                </div>
-              </div>
-
-              <div className="text-xs text-gray-600 font-poppins">
-                By registering for an account, you are consenting to our{" "}
-                <Link href="#" className="text-greenook font-medium font-poppins">
-                  Terms of Service
-                </Link>{" "}
-                and confirming that you have reviewed and accepted the{" "}
-                <Link href="#" className="text-greenook font-medium">
-                  Global Privacy Statement
-                </Link>
-                .
-              </div>
-
-              <Button 
-                  type="submit" 
-                  className="w-full rounded-full bg-greenook px-4 py-2 h-10 font-medium text-white hover:bg-greenook focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 font-poppins transition-colors"
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full rounded-full bg-greenook px-4 py-2 font-medium text-white hover:bg-greenook focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Get Started Free
-                </Button>
+                  {isLoading ? "Creating account..." : "Create Account"}
+                </button>
 
-              <div className="text-center text-sm font-poppins">
-                Already have an account?{" "}
-                <Link href="/login" className="text-greenook font-medium">
-                  Login
-                </Link>
-              </div>
-            </form>
+                <div className="text-center text-sm text-gray-700 mt-4">
+                  Already have an account?{" "}
+                  <Link href="/login" className="font-medium text-greenook hover:text-greenook">
+                    Login
+                  </Link>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   )
