@@ -72,7 +72,7 @@ export default function FAQSection() {
               </div>
 
               {/* Content box - matches height of FAQ section */}
-              <div className="bg-white p-6 pt-16 rounded-lg border border-gray-200 text-center h-full flex flex-col justify-center">
+              <div className="bg-white p-6 pt-16 rounded-lg border border-gray-200 text-center h-[450px] flex flex-col justify-center">
                 <div className="mb-6">
                   <h2 className="text-xl font-bold mb-2 font-Poppins">Do you have more questions?</h2>
                   <p className="text-gray-700 font-Poppins">
