@@ -24,7 +24,7 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-custom-green flex items-center justify-center p-4 sm:p-6">
+    <div className="min-h-screen w-full bg-greenook flex items-center justify-center p-4 sm:p-6">
       {/* Background pattern */}
       <div className="absolute inset-0 bg-[url('/background/bg4.png')] bg-cover bg-center"></div>
 
@@ -89,7 +89,7 @@ export default function ForgotPassword() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-custom-green hover:bg-secondary-green text-white font-raleway font-medium py-2.5 sm:py-3 px-4 rounded-full flex items-center justify-center transition-colors duration-200 text-sm sm:text-base"
+                    className="w-full bg-custom-green hover:bg-custom-green  text-white font-raleway font-medium py-2.5 sm:py-3 px-4 rounded-full flex items-center justify-center transition-colors duration-200 text-sm sm:text-base"
                     data-cy="reset-button"
                   >
                     Reset Password

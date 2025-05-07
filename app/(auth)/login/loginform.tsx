@@ -76,7 +76,7 @@ export default function LoginForm() {
 
       <div className="absoloute inset-0 -z-[10] ">
         <Image
-          src="/img/login/Group 1171275929.svg"
+          src="/login/Group 1171275929.svg"
           alt=""
           fill
           className="object-cover opacity-100"
@@ -112,7 +112,7 @@ export default function LoginForm() {
 
               <div className="absolute -left-8 -bottom-6 z-0">
                 <Image
-                  src="/img/login/Group 1171275832.svg"
+                  src="/login/Group 1171275832.svg"
                   alt="Decorative dot pattern"
                   width={200}
                   height={200}
@@ -121,7 +121,7 @@ export default function LoginForm() {
               </div>
               <div className="absolute -right-10 -top-2 z-0">
                 <Image
-                  src="/img/login/Group 1171275833.svg"
+                  src="/login/Group 1171275833.svg"
                   alt="Decorative dot pattern"
                   width={100}
                   height={100}
@@ -137,7 +137,7 @@ export default function LoginForm() {
 
                 <div className="flex items-center justify-center md:justify-start">
                   <Image
-                    src="/img/login/cropped-logo-1_1567c4bc-84c5-4188-81e0-d5dd9ed8ef8d (1) 1.svg"
+                    src="/login/cropped-logo-1_1567c4bc-84c5-4188-81e0-d5dd9ed8ef8d (1) 1.svg"
                     alt="Trekking Miles Logo"
                     width={300}
                     height={80}
@@ -272,7 +272,7 @@ export default function LoginForm() {
                 {/* Logo Image */}
                 <div className="flex justify-center mb-4">
                   <Image
-                    src="/img/login/cropped-logo-1_1567c4bc-84c5-4188-81e0-d5dd9ed8ef8d (1) 1.svg"
+                    src="/login/cropped-logo-1_1567c4bc-84c5-4188-81e0-d5dd9ed8ef8d (1) 1.png"
                     alt="Trekking Miles Logo"
                     width={180}
                     height={60}
