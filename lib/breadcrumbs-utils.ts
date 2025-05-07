@@ -1,4 +1,4 @@
-import type { BreadcrumbItem } from "@/app/data/navigation"
+import type { BreadcrumbItem } from "@/data/navigation"
 
 /**
  * Generates breadcrumb items based on the current path

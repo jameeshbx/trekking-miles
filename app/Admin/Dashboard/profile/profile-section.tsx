@@ -7,7 +7,7 @@ import { useState } from "react"
 import { Eye, Facebook, Twitter, Instagram } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dailog"
-import { profileData, accountData, teamMembers, commentData } from "@/app/data/profile"
+import { profileData, accountData, teamMembers, commentData } from "@/data/profile"
 
 export default function ProfilePage() {
   const [showComments, setShowComments] = useState(false)

@@ -1,5 +1,5 @@
-import { TopBarContainer } from "../../components/tobBarContainer";
-import Managedmc from "../Manage-DMC/manage-dmc"; 
+import { TopBarContainer } from "../../(components)/TobBarContainer";
+import Managedmc from "./manage-dmc"; 
 
 
 export default function managedmc() {

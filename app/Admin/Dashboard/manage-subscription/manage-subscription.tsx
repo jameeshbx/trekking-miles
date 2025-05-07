@@ -26,7 +26,7 @@ import { Calendar as CalendarComponent } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { format } from "date-fns"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import type { Subscription } from "@/app/data/subscriptions"
+import type { Subscription } from "@/data/subscriptions"
 
 interface SubscriptionTableProps {
   subscriptions: Subscription[]
@@ -246,7 +246,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                     <Checkbox
                       id="paid"
                       checked={selectedPaymentStatuses.Paid}
-                      onChange={(e: { target: { checked: any } }) => setSelectedPaymentStatuses((prev) => ({ ...prev, Paid: e.target.checked }))}
+                      onCheckedChange={(checked) => setSelectedPaymentStatuses((prev) => ({ ...prev, Paid: checked as boolean }))}
                     />
                     <label htmlFor="paid" className="text-sm">
                       Paid
@@ -256,7 +256,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                     <Checkbox
                       id="pending"
                       checked={selectedPaymentStatuses.Pending}
-                      onChange={(e: { target: { checked: any } }) => setSelectedPaymentStatuses((prev) => ({ ...prev, Pending: e.target.checked }))}
+                      onCheckedChange={(checked) => setSelectedPaymentStatuses((prev) => ({ ...prev, Pending: checked as boolean }))}
                     />
                     <label htmlFor="pending" className="text-sm">
                       Pending
@@ -266,7 +266,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                     <Checkbox
                       id="failed"
                       checked={selectedPaymentStatuses.Failed}
-                      onChange={(e: { target: { checked: any } }) => setSelectedPaymentStatuses((prev) => ({ ...prev, Failed: e.target.checked }))}
+                      onCheckedChange={(checked) => setSelectedPaymentStatuses((prev) => ({ ...prev, Failed: checked as boolean }))}
                     />
                     <label htmlFor="failed" className="text-sm">
                       Failed
@@ -276,9 +276,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                     <Checkbox
                       id="not-required"
                       checked={selectedPaymentStatuses["Not Required"]}
-                      onChange={(e: { target: { checked: any } }) =>
-                        setSelectedPaymentStatuses((prev) => ({ ...prev, "Not Required": e.target.checked }))
-                      }
+                      onCheckedChange={(checked) => setSelectedPaymentStatuses((prev) => ({ ...prev, "Not Required": checked as boolean }))}
                     />
                     <label htmlFor="not-required" className="text-sm">
                       Not Required
@@ -331,7 +329,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                     <Checkbox
                       id="business"
                       checked={selectedPlans.Business}
-                      onChange={(e: { target: { checked: any } }) => setSelectedPlans((prev) => ({ ...prev, Business: e.target.checked }))}
+                      onCheckedChange={(checked) => setSelectedPlans((prev) => ({ ...prev, Business: checked as boolean }))}
                     />
                     <label htmlFor="business" className="text-sm">
                       Business
@@ -341,7 +339,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                     <Checkbox
                       id="basic"
                       checked={selectedPlans.Basic}
-                      onChange={(e: { target: { checked: any } }) => setSelectedPlans((prev) => ({ ...prev, Basic: e.target.checked }))}
+                      onCheckedChange={(checked) => setSelectedPlans((prev) => ({ ...prev, Basic: checked as boolean }))}
                     />
                     <label htmlFor="basic" className="text-sm">
                       Basic
@@ -351,9 +349,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                     <Checkbox
                       id="business-trial"
                       checked={selectedPlans["Business (Free Trial)"]}
-                      onChange={(e: { target: { checked: any } }) =>
-                        setSelectedPlans((prev) => ({ ...prev, "Business (Free Trial)": e.target.checked }))
-                      }
+                      onCheckedChange={(checked) => setSelectedPlans((prev) => ({ ...prev, "Business (Free Trial)": checked as boolean }))}
                     />
                     <label htmlFor="business-trial" className="text-sm">
                       Business (Free Trial)
@@ -525,7 +521,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
                   <th className="p-3 text-left" style={{ width: "40px" }}>
-                    <Checkbox checked={selectAll} onChange={(e: { target: { checked: boolean } }) => handleSelectAll(e.target.checked)} />
+                    <Checkbox checked={selectAll} onCheckedChange={handleSelectAll} />
                   </th>
                   <th className="p-3 text-left font-medium text-sm font-Poppins" style={{ width: "8%" }}>
                     Subscription ID
@@ -569,7 +565,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                     <td className="p-3">
                       <Checkbox
                         checked={selectedItems[subscription.id] || false}
-                        onChange={(e: { target: { checked: boolean } }) => handleSelectItem(subscription.id, e.target.checked)}
+                        onCheckedChange={(checked) => handleSelectItem(subscription.id, checked as boolean)}
                       />
                     </td>
                     <td className="p-3 text-sm font-Poppins">{subscription.id}</td>
@@ -665,7 +661,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
             <thead>
               <tr className="bg-gray-50 border-b border-gray-200">
                 <th className="p-3 text-left w-10">
-                  <Checkbox checked={selectAll} onChange={(e: { target: { checked: boolean } }) => handleSelectAll(e.target.checked)} />
+                  <Checkbox checked={selectAll} onCheckedChange={handleSelectAll} />
                 </th>
                 <th className="p-3 text-left font-medium text-sm font-Poppins">Subscription ID</th>
                 <th className="p-3 text-left font-medium text-sm font-Poppins">Agency/DMC</th>
@@ -681,7 +677,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                   <td className="p-3">
                     <Checkbox
                       checked={selectedItems[subscription.id] || false}
-                      onChange={(e: { target: { checked: boolean } }) => handleSelectItem(subscription.id, e.target.checked)}
+                      onCheckedChange={(checked) => handleSelectItem(subscription.id, checked as boolean)}
                     />
                   </td>
                   <td className="p-3 text-sm">{subscription.id}</td>
@@ -761,7 +757,7 @@ export function SubscriptionTable({ subscriptions }: SubscriptionTableProps) {
                     <div className="flex items-center gap-2">
                       <Checkbox
                         checked={selectedItems[subscription.id] || false}
-                        onChange={(e: { target: { checked: boolean } }) => handleSelectItem(subscription.id, e.target.checked)}
+                        onCheckedChange={(checked) => handleSelectItem(subscription.id, checked as boolean)}
                       />
                       <span className="font-medium text-sm">{subscription.id}</span>
                     </div>
