@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 
-import { profileData, accountData, teamMembers, commentData, companyInformation } from "@/app/data/admin-profile"
+import { profileData, accountData, teamMembers, commentData, companyInformation } from "@/data/admin-profile"
 
 export default function ProfilePage() {
   const [showComments, setShowComments] = useState(false)

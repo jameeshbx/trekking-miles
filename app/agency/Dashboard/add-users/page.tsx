@@ -1,4 +1,4 @@
-import { TopBarContainer } from "@/app/admin/components/tobBarContainer";
+import { TopBarContainer } from "@/app/admin/(components)/TobBarContainer";
 import AddUsers from "./add-users";
 
 

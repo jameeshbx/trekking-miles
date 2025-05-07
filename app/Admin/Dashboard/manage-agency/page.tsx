@@ -1,4 +1,4 @@
-import { TopBarContainer } from "../../components/tobBarContainer"
+import { TopBarContainer } from "../../(components)/TobBarContainer"
 import ManageAgencySignup from "./manageagency"
 
 export default function ManageAgencyPage() {

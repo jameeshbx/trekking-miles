@@ -1,5 +1,5 @@
 import Link from "next/link"
-import type { BreadcrumbItem } from "@/app/data/navigation"
+import type { BreadcrumbItem } from "@/data/navigation"
 
 interface BreadcrumbsProps {
   items: BreadcrumbItem[]

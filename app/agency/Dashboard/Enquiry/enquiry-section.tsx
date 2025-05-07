@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Slider } from "@/components/ui/slider"
 import { DragDropContext, Droppable, Draggable, type DropResult } from "@hello-pangea/dnd"
-import { initialColumns, type Enquiry as EnquiryType, type Column } from "@/app/data/enquiry"
+import { initialColumns, type Enquiry as EnquiryType, type Column } from "@/data/enquiry"
 import Image from "next/image"
 import { toast } from "sonner"
 import { Calendar } from "@/components/ui/calendar"

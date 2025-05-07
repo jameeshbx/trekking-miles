@@ -1,5 +1,5 @@
-import Enquirysection from "../Enquiry/enquiry-section";
-import { TopBarContainer } from "@/app/Admin/components/tobBarContainer";
+import Enquirysection from "./enquiry-section";
+import { TopBarContainer } from "@/app/admin/(components)/TobBarContainer";
 
 export default function Enquiry() {
   return (

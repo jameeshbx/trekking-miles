@@ -1,8 +1,8 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import { TopBar } from "./adminTopBar"
-import { getNavigationData } from "@/app/data/navigation"
+import { TopBar } from "./AdminTopBar"
+import { getNavigationData } from "@/data/navigation"
 
 export function TopBarContainer() {
   const pathname = usePathname()

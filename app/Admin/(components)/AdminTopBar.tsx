@@ -2,9 +2,9 @@
 import { useState } from "react"
 import { Bell, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
-import type { BreadcrumbItem } from "@/app/data/navigation"
-import { Breadcrumbs } from "./breadcrumbs"
-import { NotificationsPopup } from "./notification-popup"
+import type { BreadcrumbItem } from "@/data/navigation"
+import { Breadcrumbs } from "./Breadcrumbs"
+import { NotificationsPopup } from "./Notification-popup"
 
 interface TopBarProps {
   breadcrumbs: BreadcrumbItem[]

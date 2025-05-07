@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input"
 import { Calendar as CalendarComponent } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { format } from "date-fns"
-import { dmcRequests, getStatusColor, type DMCRequest } from "@/app/data/dmc"
+import { dmcRequests, getStatusColor, type DMCRequest } from "@/data/dmc"
 
 export default function Dmcsignup() {
   const router = useRouter()

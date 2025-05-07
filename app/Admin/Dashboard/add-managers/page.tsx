@@ -1,6 +1,6 @@
 
-import ManagerSection from "../../components/managersSection";
-import { TopBarContainer } from "../../components/tobBarContainer";
+import ManagerSection from "../../(components)/managersSection";
+import { TopBarContainer } from "../../(components)/TobBarContainer";
 
 
 export default function Home() {

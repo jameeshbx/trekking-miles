@@ -1,5 +1,5 @@
-import Profile from "../profile/profile-admin";
-import { TopBarContainer } from "@/app/admin/components/tobBarContainer";
+import Profile from "./profile-admin";
+import { TopBarContainer } from "@/app/admin/(components)/TobBarContainer";
 
 export default function profile() {
   return (

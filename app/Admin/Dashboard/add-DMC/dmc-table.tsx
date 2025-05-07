@@ -11,7 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Badge } from "@/components/ui/badge"
-import { dmcData } from "@/app/data/add-dmc"
+import { dmcData } from "@/data/add-dmc"
 
 export function DMCTable() {
   const [searchQuery, setSearchQuery] = useState("")

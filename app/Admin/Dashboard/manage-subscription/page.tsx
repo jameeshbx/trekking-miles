@@ -1,5 +1,5 @@
-import { subscriptions } from "@/app/data/subscriptions";
-import { TopBarContainer } from "../../components/tobBarContainer";
+import { subscriptions } from "@/data/subscriptions";
+import { TopBarContainer } from "../../(components)/TobBarContainer";
 import { SubscriptionTable } from "./manage-subscription";
 
 

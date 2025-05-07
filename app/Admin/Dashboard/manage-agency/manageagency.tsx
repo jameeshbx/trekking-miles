@@ -31,7 +31,7 @@ import {
   getRequestTypeColor,
   type AgencyRequest,
   getRequestTypeDotColor,
-} from "@/app/data/agency"
+} from "@/data/agency"
 
 export default function ManageAgencySignup() {
   const router = useRouter()
