@@ -13,6 +13,7 @@ import { toast } from "sonner"
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
+  
 })
 
 export default function LoginForm() {
@@ -58,7 +59,7 @@ export default function LoginForm() {
       }
 
       const callbackUrl = searchParams.get("callbackUrl")
-      router.push(callbackUrl || "/Admin/Dashboard/profile")
+      router.push(callbackUrl || "/admin/dashboard/profile")
       router.refresh()
     } catch (error) {
       if (error instanceof z.ZodError) {

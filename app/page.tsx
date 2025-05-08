@@ -1,14 +1,14 @@
-import Navbar from "../components/topBar";
-import Herosection from "../components/hero-section";
-import Feature from "../components/featured-section";
-import SmartFeature from "../components/smartFeature";
-import HowItWorks from "../components/working";
-import SeeItInAction from "../components/wVideo";
-import Pricing from "../components/pricing-section";
-import ContactSection from "@/components/contactSection";
-import FAQSection from "@/components/faq-section";
-import TestimonialSection from "@/components/testmonial-section";
-import { Footer } from "react-day-picker";
+import Navbar from "../components/TopBar";
+import Herosection from "../components/Hero-section";
+import Feature from "../components/Featured-section";
+import SmartFeature from "../components/SmartFeature";
+import HowItWorks from "../components/Working";
+import SeeItInAction from "../components/WVideo";
+import Pricing from "../components/Pricing-section";
+import ContactSection from "@/components/ContactSection";
+import FAQSection from "@/components/Faq-section";
+import TestimonialSection from "@/components/Testmonial-section";
+import  Footer  from "../components/Footer";
 
 
 
