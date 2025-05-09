@@ -44,7 +44,6 @@ export default function Enquiry() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [columns, setColumns] = useState<Column[]>(initialColumns)
   const [isClient, setIsClient] = useState(false)
-  // const [scrollPosition, setScrollPosition] = useState(0)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [hoveredEnquiry, setHoveredEnquiry] = useState<string | null>(null)
   const [dateRange, setDateRange] = useState<{

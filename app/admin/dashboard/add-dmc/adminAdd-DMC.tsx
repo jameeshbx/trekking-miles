@@ -12,7 +12,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { toast } from "@/components/ui/use-toast"
 import { Toaster } from "@/components/ui/toaster"
-import { countries } from "@/data/add-dmc"
+import { countries, } from "@/data/add-dmc"
 
 export function DMCRegistrationForm() {
   const [uploadedFile, setUploadedFile] = useState<string | null>(null)
@@ -41,9 +41,7 @@ export function DMCRegistrationForm() {
 
   const [primaryPhoneExtension, setPrimaryPhoneExtension] = useState("+91")
   const [ownerPhoneExtension, setOwnerPhoneExtension] = useState("+91")
-  // const [showBankDetailsModal, setShowBankDetailsModal] = useState(false)
-  // const [showCardNumber, setShowCardNumber] = useState(false)
-  // const [showCVV, setShowCVV] = useState(false)
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
