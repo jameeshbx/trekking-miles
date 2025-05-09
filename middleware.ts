@@ -21,7 +21,7 @@ export default withAuth(
       // Set callbackUrl to existing one or default to /admin/dashboard
       url.searchParams.set(
         "callbackUrl",
-        existingCallbackUrl || "/Admin/Dashboard/profile"
+        existingCallbackUrl || "/admin/dashboard/profile"
       );
       return NextResponse.redirect(url);
     }

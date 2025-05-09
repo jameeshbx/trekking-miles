@@ -23,6 +23,7 @@
     "@radix-ui/react-slot": "^1.2.0",
     "@radix-ui/react-toast": "^1.2.7",
     "@types/date-fns": "^2.6.3",
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "classnames": "^2.5.1",
@@ -44,6 +45,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.0.14",
+    "@types/bcrypt": "^5.0.2",
     "@types/cypress-image-snapshot": "^3.1.9",
     "@types/node": "^20",
     "@types/react": "^19",
