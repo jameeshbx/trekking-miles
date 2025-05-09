@@ -58,7 +58,7 @@ export default function LoginForm() {
       }
 
       const callbackUrl = searchParams.get("callbackUrl")
-      router.push(callbackUrl || "/Admin/Dashboard/profile")
+      router.push(callbackUrl || "/admin/dashboard/profile")
       router.refresh()
     } catch (error) {
       if (error instanceof z.ZodError) {

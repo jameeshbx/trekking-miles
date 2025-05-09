@@ -4,7 +4,7 @@ export interface BreadcrumbItem {
     active?: boolean
   }
   
-  export interface NavigationData {
+export interface NavigationData {
     [path: string]: {
       breadcrumbs: BreadcrumbItem[]
       title: string
@@ -19,7 +19,7 @@ export interface BreadcrumbItem {
       title: "Dashboard",
       subtitle: "Overview and summary",
     },
-    "/admin/Dashboard": {
+    "/admin/dashboard": {
       breadcrumbs: [
         { label: "Pages", href: "/admin" },
         { label: "Dashboard", href: "/dashboard", active: true },
@@ -27,7 +27,7 @@ export interface BreadcrumbItem {
       title: "Manage Users",
       subtitle: "Add or manage details",
     },
-    "/admin/Dashboard/manage-subscription": {
+    "/admin/dashboard/manage-subscription": {
       breadcrumbs: [
         { label: "Pages", href: "/admin" },
         { label: "Dashboard", href: "/dashboard", active: true },
@@ -35,7 +35,7 @@ export interface BreadcrumbItem {
       title: "Manage Subscriptions",
       subtitle: "Add or manage details",
     },
-    "/admin/Dashboard/add-managers": {
+    "/admin/dashboard/add-managers": {
       breadcrumbs: [
         { label: "Pages", href: "/admin" },
         { label: "Dashboard", href: "/dashboard", active: true },
@@ -43,15 +43,15 @@ export interface BreadcrumbItem {
       title: "Manage Users",
       subtitle: "Add or manage details",
     },
-    "/admin/Dashboard/Manage-DMC": {
+    "/admin/dashboard/Manage-DMC": {
       breadcrumbs: [
         { label: "Pages", href: "/admin" },
         { label: "Dashboard", href: "/dashboard", active: true },
       ],
-      title: "Manage Agency Signups",
+      title: "Manage DMC Signups",
       subtitle: "Add or manage details",
     },
-    "/admin/Dashboard/profile": {
+    "/admin/dashboard/profile": {
       breadcrumbs: [
         { label: "Pages", href: "/admin" },
         { label: "Dashboard", href: "/dashboard", active: true },
@@ -59,7 +59,7 @@ export interface BreadcrumbItem {
       title: "Profile",
       subtitle: "Profile",
     },
-    "/admin/Dashboard/add-DMC": {
+    "/admin/dashboard/add-DMC": {
       breadcrumbs: [
         { label: "Pages", href: "/admin" },
         { label: "Dashboard", href: "/dashboard", active: true },
@@ -67,7 +67,7 @@ export interface BreadcrumbItem {
       title: "Manage DMC",
       subtitle: "Add or manage details",
     },
-    "/agency/Dashboard/add-users": {
+    "/agency/dashboard/add-users": {
       breadcrumbs: [
         { label: "Pages", href: "/agency" },
         { label: "Dashboard", href: "/dashboard", active: true },
@@ -75,7 +75,7 @@ export interface BreadcrumbItem {
       title: "Manage Users",
       subtitle: "Add or manage details",
     },
-    "/agency/Dashboard/add-dmc": {
+    "/agency/dashboard/add-dmc": {
       breadcrumbs: [
         { label: "Pages", href: "/agency" },
         { label: "Dashboard", href: "/dashboard", active: true },
@@ -83,7 +83,7 @@ export interface BreadcrumbItem {
       title: "Manage DMC",
       subtitle: "Add or manage details",
     },
-    "/agency/Dashboard/profile": {
+    "/agency/dashboard/profile": {
       breadcrumbs: [
         { label: "Pages", href: "/agency" },
         { label: "Dashboard", href: "/dashboard", active: true },

@@ -1,5 +1,5 @@
 
-import ManagerSection from "../../(components)/managersSection";
+import ManagerSection from "../../(components)/ManagersSection";
 import { TopBarContainer } from "../../(components)/TobBarContainer";
 
 
