@@ -8,7 +8,7 @@ import Pricing from "../components/Pricing-section";
 import ContactSection from "@/components/ContactSection";
 import FAQSection from "@/components/Faq-section";
 import TestimonialSection from "@/components/Testmonial-section";
-import  Footer  from "../components/Footer";
+import Footer from "@/components/Footer";
 
 
 
