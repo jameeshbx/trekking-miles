@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { Search, ChevronDown, Plus, ChevronLeft, ChevronRight, CalendarIcon } from "lucide-react"
+import { Search, ChevronDown, Plus, CalendarIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowUpRight } from "lucide-react"
@@ -44,7 +44,6 @@ export default function Enquiry() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [columns, setColumns] = useState<Column[]>(initialColumns)
   const [isClient, setIsClient] = useState(false)
-  const [scrollPosition, setScrollPosition] = useState(0)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [hoveredEnquiry, setHoveredEnquiry] = useState<string | null>(null)
   const [dateRange, setDateRange] = useState<{

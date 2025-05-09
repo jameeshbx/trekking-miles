@@ -8,10 +8,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// generator erd {
-//   provider = "prisma-erd-generator"
-// }
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -37,6 +33,20 @@ enum BusinessType {
   TEKKING_MYLES
   AGENCY
   DMC
+}
+
+
+// Add the missing File model
+model File {
+  id          String       @id @default(uuid())
+  url         String
+  name        String
+  size        Int
+  type        String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  agencyLogo  AgencyForm?  @relation("AgencyLogo")
+  agencyLicense AgencyForm? @relation("AgencyBusinessLicense")
 }
 
 model User {
@@ -122,13 +132,82 @@ model Subscription {
   featureId    String
   requestLimit Int
   userLimit    Int
+  agencyFormId String?
 
-  agency  Agency  @relation(fields: [agencyId], references: [id], onDelete: Cascade)
-  plan    Plan    @relation(fields: [planId], references: [id], onDelete: Cascade)
-  feature Feature @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  agency     Agency     @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  plan       Plan       @relation(fields: [planId], references: [id], onDelete: Cascade)
+  feature    Feature    @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  agencyForm AgencyForm? @relation(fields: [agencyFormId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([agencyId, featureId]) // Ensure an agency can subscribe to a feature only once
+  @@unique([agencyId, featureId])
 }
+
+model AgencyForm {
+  id                  String     @id @default(uuid())
+  name                String
+  config              Json       @default("{}")
+  
+  // Basic Information
+  contactPerson       String?
+  agencyType          AgencyType?
+  designation         String?
+  phoneNumber         String?
+  phoneCountryCode    String?    @default("+91")
+  
+  // Company Details
+  ownerName           String?
+  email               String?
+  companyPhone        String?
+  companyPhoneCode    String?    @default("+91")
+  website             String?
+  landingPageColor    String?    @default("#4ECDC4")
+  
+  // GST & Registration Details
+  gstRegistered       Boolean?   @default(true)
+  gstNumber           String?
+  yearOfRegistration  String?
+  panNumber           String?
+  panType             PanType?
+  headquarters        String?
+  country             String?    @default("INDIA")
+  yearsOfOperation    String?
+  
+  // File Storage
+  logoId              String?    @unique
+  businessLicenseId   String?    @unique
+  
+  // Relations
+  logo                File?      @relation("AgencyLogo", fields: [logoId], references: [id])
+  businessLicense     File?      @relation("AgencyBusinessLicense", fields: [businessLicenseId], references: [id])
+  
+  createdBy           String
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+  subscriptions       Subscription[]
+
+  @@index([name])
+  @@index([email])
+}
+
+enum AgencyType {
+  PRIVATE_LIMITED
+  PROPRIETORSHIP
+  PARTNERSHIP
+  PUBLIC_LIMITED
+  LLP
+  TOUR_OPERATOR
+  TRAVEL_AGENT
+  DMC
+  OTHER
+}
+
+enum PanType {
+  INDIVIDUAL
+  COMPANY
+  TRUST
+  OTHER
+}
+
