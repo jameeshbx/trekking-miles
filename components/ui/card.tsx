@@ -49,6 +49,21 @@ const CardTitle = ({
   )
 }
 
+const CardDescription = ({
+  children,
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLParagraphElement>) => {
+  return (
+    <p
+      className={cn("text-sm text-muted-foreground", className)}
+      {...props}
+    >
+      {children}
+    </p>
+  )
+}
+
 const CardContent = ({
   children,
   className,
@@ -79,4 +94,4 @@ const CardFooter = ({
   )
 }
 
-export { Card, CardHeader, CardTitle, CardContent, CardFooter }
+export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }

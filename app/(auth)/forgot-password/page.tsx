@@ -11,16 +11,32 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError(null)
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false)
+    try {
+      const response = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.message || "Something went wrong")
+      }
+
       setIsSuccess(true)
-    }, 1500)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -63,6 +79,12 @@ export default function ForgotPassword() {
                 <p className="text-gray-600 mb-6 sm:mb-8 text-center text-sm sm:text-base font-nunito">
                   Forgot your password? No worries, then lets submit password reset. It will be send to your email.
                 </p>
+
+                {error && (
+                  <div className="mb-4 p-3 rounded-md bg-red-50 border border-red-200 text-red-800 text-sm">
+                    {error}
+                  </div>
+                )}
 
                 <form onSubmit={handleSubmit} data-cy="reset-form">
                   <div className="mb-6">

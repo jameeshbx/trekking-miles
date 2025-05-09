@@ -1,9 +1,9 @@
-import AgencyForm from "./Agency-form"; 
+import AgencyForm from "./agency-form";
 
 export default function agencyform() {
-  return (
-     <div className="">
-        <AgencyForm />
-     </div>
-  );
+   return (
+      <div className="">
+         <AgencyForm />
+      </div>
+   );
 }

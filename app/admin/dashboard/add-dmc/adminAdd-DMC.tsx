@@ -12,7 +12,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { toast } from "@/components/ui/use-toast"
 import { Toaster } from "@/components/ui/toaster"
-import { countries, cities, destinations } from "@/data/add-dmc"
+import { countries } from "@/data/add-dmc"
 
 export function DMCRegistrationForm() {
   const [uploadedFile, setUploadedFile] = useState<string | null>(null)
@@ -41,9 +41,9 @@ export function DMCRegistrationForm() {
 
   const [primaryPhoneExtension, setPrimaryPhoneExtension] = useState("+91")
   const [ownerPhoneExtension, setOwnerPhoneExtension] = useState("+91")
-  const [showBankDetailsModal, setShowBankDetailsModal] = useState(false)
-  const [showCardNumber, setShowCardNumber] = useState(false)
-  const [showCVV, setShowCVV] = useState(false)
+  // const [showBankDetailsModal, setShowBankDetailsModal] = useState(false)
+  // const [showCardNumber, setShowCardNumber] = useState(false)
+  // const [showCVV, setShowCVV] = useState(false)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -461,14 +461,14 @@ export function DMCRegistrationForm() {
         </div>
       </div>
 
-    <div className="flex flex-wrap gap-4 justify-end mt-4 md:mt-0">
-      <Button
-        type="submit"
-        className="h-12 px-6 bg-custom-green hover:bg-gray-900 text-white rounded-md w-full md:w-auto"
-      >
-        Submit
-      </Button>
-    </div>
+      <div className="flex flex-wrap gap-4 justify-end mt-4 md:mt-0">
+        <Button
+          type="submit"
+          className="h-12 px-6 bg-custom-green hover:bg-gray-900 text-white rounded-md w-full md:w-auto"
+        >
+          Submit
+        </Button>
+      </div>
 
       <Toaster />
     </form>
