@@ -15,10 +15,11 @@ import { Toaster } from "@/components/ui/toaster"
 import { Textarea } from "@/components/ui/textarea"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { countries, cities, destinations } from "@/data/add-dmc"
+import type { DMCRegistrationData, DMCRegistrationResponse } from "@/types/dmc"
 
 export function DMCRegistrationForm() {
   const [uploadedFile, setUploadedFile] = useState<string | null>(null)
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<DMCRegistrationData>({
     dmcName: "",
     primaryContact: "",
     phoneNumber: "",
@@ -38,11 +39,11 @@ export function DMCRegistrationForm() {
     headquarters: "",
     country: "",
     yearOfExperience: "",
-    registrationCertificate: null as File | null,
+    registrationCertificate: null,
+    primaryPhoneExtension: "+91",
+    ownerPhoneExtension: "+91",
   })
 
-  const [primaryPhoneExtension, setPrimaryPhoneExtension] = useState("+91")
-  const [ownerPhoneExtension, setOwnerPhoneExtension] = useState("+91")
   const [showBankDetailsModal, setShowBankDetailsModal] = useState(false)
   const [showCardNumber, setShowCardNumber] = useState(false)
   const [showCVV, setShowCVV] = useState(false)
@@ -64,37 +65,79 @@ export function DMCRegistrationForm() {
     }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
-    toast({
-      title: "Form submitted",
-      description: "DMC has been registered successfully",
-    })
-    // Reset form after submission
-    setFormData({
-      dmcName: "",
-      primaryContact: "",
-      phoneNumber: "",
-      designation: "",
-      ownerName: "",
-      ownerPhoneNumber: "",
-      email: "",
-      website: "",
-      primaryCountry: "",
-      destinationsCovered: "",
-      cities: "",
-      gstRegistration: "Yes",
-      gstNo: "",
-      yearOfRegistration: "",
-      panNo: "",
-      panType: "",
-      headquarters: "",
-      country: "",
-      yearOfExperience: "",
-      registrationCertificate: null,
-    })
-    setUploadedFile(null)
+
+    try {
+      // Create FormData object for file upload
+      const submitData = new FormData()
+
+      // Add all form fields to FormData
+      Object.entries(formData).forEach(([key, value]) => {
+        if (value !== null) {
+          submitData.append(key, value)
+        }
+      })
+
+      // Add phone extensions
+      submitData.append("primaryPhoneExtension", formData.primaryPhoneExtension)
+      submitData.append("ownerPhoneExtension", formData.ownerPhoneExtension)
+
+      // Make API call
+      const response = await fetch("/api/dmc", {
+        method: "POST",
+        body: JSON.stringify(Object.fromEntries(submitData)),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to register DMC")
+      }
+
+      toast({
+        title: "Success",
+        description: "DMC has been registered successfully",
+      })
+
+      // Reset form after successful submission
+      setFormData({
+        dmcName: "",
+        primaryContact: "",
+        phoneNumber: "",
+        designation: "",
+        ownerName: "",
+        ownerPhoneNumber: "",
+        email: "",
+        website: "",
+        primaryCountry: "",
+        destinationsCovered: "",
+        cities: "",
+        gstRegistration: "Yes",
+        gstNo: "",
+        yearOfRegistration: "",
+        panNo: "",
+        panType: "",
+        headquarters: "",
+        country: "",
+        yearOfExperience: "",
+        registrationCertificate: null,
+        primaryPhoneExtension: "+91",
+        ownerPhoneExtension: "+91",
+      })
+      setUploadedFile(null)
+
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to register DMC",
+        variant: "destructive",
+      })
+    }
   }
 
   return (
@@ -136,7 +179,7 @@ export function DMCRegistrationForm() {
             Phone number
           </label>
           <div className="flex">
-            <Select value={primaryPhoneExtension} onValueChange={setPrimaryPhoneExtension}>
+            <Select value={formData.primaryPhoneExtension} onValueChange={(value) => setFormData((prev) => ({ ...prev, primaryPhoneExtension: value }))}>
               <SelectTrigger className="w-28 h-12 rounded-r-none border-r-0">
                 <SelectValue placeholder="+91" />
               </SelectTrigger>
@@ -214,7 +257,7 @@ export function DMCRegistrationForm() {
             Phone number
           </label>
           <div className="flex">
-            <Select value={ownerPhoneExtension} onValueChange={setOwnerPhoneExtension}>
+            <Select value={formData.ownerPhoneExtension} onValueChange={(value) => setFormData((prev) => ({ ...prev, ownerPhoneExtension: value }))}>
               <SelectTrigger className="w-28 h-12 rounded-r-none border-r-0">
                 <SelectValue placeholder="+91" />
               </SelectTrigger>
@@ -357,7 +400,12 @@ export function DMCRegistrationForm() {
           <label className="block text-sm font-medium text-gray-700 font-Poppins">GST Registration</label>
           <RadioGroup
             value={formData.gstRegistration}
-            onValueChange={(value) => setFormData((prev) => ({ ...prev, gstRegistration: value }))}
+            onValueChange={(value) => {
+              setFormData((prev) => ({
+                ...prev,
+                gstRegistration: value as "Yes" | "No"
+              }))
+            }}
             className="flex items-center gap-4"
           >
             <div className="flex items-center space-x-2">
@@ -477,22 +525,22 @@ export function DMCRegistrationForm() {
         </div>
 
         {/* Year of Experience */}
-            <div className="space-y-2 w-full">
-             <label htmlFor="yearOfExperience" className="block text-sm font-medium text-gray-700 font-Poppins">
-                Year of Experience
-              </label>
-              <div className="relative">
-                <Input
-                  id="yearOfExperience"
-                  name="yearOfExperience"
-                  value={formData.yearOfExperience}
-                  onChange={handleInputChange}
-                  className="w-full h-12 focus:border-emerald-500 hover:border-emerald-500 transition-colors"
-                />
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-gray-100 px-2 py-1 rounded text-sm text-gray-600 font-Poppins">
-                  Years
-              </div>
+        <div className="space-y-2 w-full">
+          <label htmlFor="yearOfExperience" className="block text-sm font-medium text-gray-700 font-Poppins">
+            Year of Experience
+          </label>
+          <div className="relative">
+            <Input
+              id="yearOfExperience"
+              name="yearOfExperience"
+              value={formData.yearOfExperience}
+              onChange={handleInputChange}
+              className="w-full h-12 focus:border-emerald-500 hover:border-emerald-500 transition-colors"
+            />
+            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-gray-100 px-2 py-1 rounded text-sm text-gray-600 font-Poppins">
+              Years
             </div>
+          </div>
         </div>
 
         {/* Business Registration / Registration Certificate - Fixed alignment */}

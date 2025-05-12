@@ -35,17 +35,16 @@ enum BusinessType {
   DMC
 }
 
-
 // Add the missing File model
 model File {
-  id          String       @id @default(uuid())
-  url         String
-  name        String
-  size        Int
-  type        String
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  agencyLogo  AgencyForm?  @relation("AgencyLogo")
+  id            String      @id @default(uuid())
+  url           String
+  name          String
+  size          Int
+  type          String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  agencyLogo    AgencyForm? @relation("AgencyLogo")
   agencyLicense AgencyForm? @relation("AgencyBusinessLicense")
 }
 
@@ -126,7 +125,7 @@ model Feature {
 }
 
 model Subscription {
-  id           String @id @default(uuid())
+  id           String  @id @default(uuid())
   agencyId     String
   planId       String
   featureId    String
@@ -134,9 +133,9 @@ model Subscription {
   userLimit    Int
   agencyFormId String?
 
-  agency     Agency     @relation(fields: [agencyId], references: [id], onDelete: Cascade)
-  plan       Plan       @relation(fields: [planId], references: [id], onDelete: Cascade)
-  feature    Feature    @relation(fields: [featureId], references: [id], onDelete: Cascade)
+  agency     Agency      @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  plan       Plan        @relation(fields: [planId], references: [id], onDelete: Cascade)
+  feature    Feature     @relation(fields: [featureId], references: [id], onDelete: Cascade)
   agencyForm AgencyForm? @relation(fields: [agencyFormId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
@@ -146,47 +145,47 @@ model Subscription {
 }
 
 model AgencyForm {
-  id                  String     @id @default(uuid())
-  name                String
-  config              Json       @default("{}")
-  
+  id     String @id @default(uuid())
+  name   String
+  config Json   @default("{}")
+
   // Basic Information
-  contactPerson       String?
-  agencyType          AgencyType?
-  designation         String?
-  phoneNumber         String?
-  phoneCountryCode    String?    @default("+91")
-  
+  contactPerson    String?
+  agencyType       AgencyType?
+  designation      String?
+  phoneNumber      String?
+  phoneCountryCode String?     @default("+91")
+
   // Company Details
-  ownerName           String?
-  email               String?
-  companyPhone        String?
-  companyPhoneCode    String?    @default("+91")
-  website             String?
-  landingPageColor    String?    @default("#4ECDC4")
-  
+  ownerName        String?
+  email            String?
+  companyPhone     String?
+  companyPhoneCode String? @default("+91")
+  website          String?
+  landingPageColor String? @default("#4ECDC4")
+
   // GST & Registration Details
-  gstRegistered       Boolean?   @default(true)
-  gstNumber           String?
-  yearOfRegistration  String?
-  panNumber           String?
-  panType             PanType?
-  headquarters        String?
-  country             String?    @default("INDIA")
-  yearsOfOperation    String?
-  
+  gstRegistered      Boolean? @default(true)
+  gstNumber          String?
+  yearOfRegistration String?
+  panNumber          String?
+  panType            PanType?
+  headquarters       String?
+  country            String?  @default("INDIA")
+  yearsOfOperation   String?
+
   // File Storage
-  logoId              String?    @unique
-  businessLicenseId   String?    @unique
-  
+  logoId            String? @unique
+  businessLicenseId String? @unique
+
   // Relations
-  logo                File?      @relation("AgencyLogo", fields: [logoId], references: [id])
-  businessLicense     File?      @relation("AgencyBusinessLicense", fields: [businessLicenseId], references: [id])
-  
-  createdBy           String
-  createdAt           DateTime   @default(now())
-  updatedAt           DateTime   @updatedAt
-  subscriptions       Subscription[]
+  logo            File? @relation("AgencyLogo", fields: [logoId], references: [id])
+  businessLicense File? @relation("AgencyBusinessLicense", fields: [businessLicenseId], references: [id])
+
+  createdBy     String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  subscriptions Subscription[]
 
   @@index([name])
   @@index([email])
@@ -210,4 +209,3 @@ enum PanType {
   TRUST
   OTHER
 }
-
