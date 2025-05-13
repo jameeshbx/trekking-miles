@@ -1,5 +1,4 @@
 "use client"
-
 import { useState, type ChangeEvent } from "react"
 import Image from "next/image"
 import { HexColorPicker } from "react-colorful"
@@ -8,8 +7,20 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useForm, type SubmitHandler } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { agencyFormSchema, type AgencyFormValues } from "@/lib/agency"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
+
+// Add type for agency type options
+type AgencyType = "PRIVATE_LIMITED" | "PROPRIETORSHIP" | "PARTNERSHIP" | "PUBLIC_LIMITED" | "LLP"
+
+// Add type for PAN type options
+type PanType = "INDIVIDUAL" | "COMPANY" | "TRUST" | "OTHER"
 
 export default function AgencyForm() {
+  const router = useRouter()
   const [color, setColor] = useState("#4ECDC4")
   const [tempColor, setTempColor] = useState("#4ECDC4")
   const [showColorPicker, setShowColorPicker] = useState(false)
@@ -19,6 +30,26 @@ export default function AgencyForm() {
   const [licenseLoading, setLicenseLoading] = useState(false)
   const [logoUploaded, setLogoUploaded] = useState(false)
   const [licenseUploaded, setLicenseUploaded] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<AgencyFormValues>({
+    resolver: zodResolver(agencyFormSchema),
+    defaultValues: {
+      phoneCountryCode: "+91",
+      companyPhoneCode: "+91",
+      landingPageColor: "#4ECDC4",
+      country: "INDIA",
+      gstRegistered: true,
+    },
+  })
+
+  const gstRegistered = watch("gstRegistered")
 
   const handleLogoUpload = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -29,14 +60,15 @@ export default function AgencyForm() {
       if (file.size <= 3 * 1024 * 1024) {
         setLogoLoading(true)
         setLogoUploaded(false)
-        // Simulate upload process
         setTimeout(() => {
           setLogoFile(file)
+          // Ensure the file is properly set in the form
+          setValue("logo", file, { shouldValidate: true })
           setLogoLoading(false)
           setLogoUploaded(true)
         }, 1000)
       } else {
-        alert("File size exceeds 3MB limit")
+        toast.error("File size exceeds 3MB limit")
       }
     }
   }
@@ -50,15 +82,68 @@ export default function AgencyForm() {
       if (file.size <= 3 * 1024 * 1024) {
         setLicenseLoading(true)
         setLicenseUploaded(false)
-        // Simulate upload process
         setTimeout(() => {
           setLicenseFile(file)
+          // Ensure the file is properly set in the form
+          setValue("businessLicense", file, { shouldValidate: true })
           setLicenseLoading(false)
           setLicenseUploaded(true)
         }, 1000)
       } else {
-        alert("File size exceeds 3MB limit")
+        toast.error("File size exceeds 3MB limit")
       }
+    }
+  }
+
+  const onSubmit: SubmitHandler<AgencyFormValues> = async (data) => {
+    setIsSubmitting(true)
+    try {
+      const formData = new FormData()
+
+      // Append all form data with proper type conversion
+      Object.entries(data).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          if (key === "logo" || key === "businessLicense") {
+            // Only append files if they exist
+            if (value instanceof File && value.size > 0) {
+              formData.append(key, value)
+            }
+          } else if (key === "gstRegistered") {
+            // Ensure boolean is converted to string
+            formData.append(key, value ? "true" : "false")
+          } else {
+            // Convert all other values to string
+            formData.append(key, String(value))
+          }
+        }
+      })
+
+      // Add debug logging
+      console.log("Submitting form data:")
+      for (const [key, value] of formData.entries()) {
+        console.log(key, typeof value === "object" ? `File: ${(value as File).name}` : value)
+      }
+
+      const response = await fetch("/api/agencyform", {
+        method: "POST",
+        body: formData,
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || `Failed to submit form: ${response.status} ${response.statusText}`)
+      }
+
+      const result = await response.json()
+      console.log("Success response:", result)
+      toast.success("Agency created successfully!")
+      router.push("/dashboard")
+    } catch (error: unknown) {
+      console.error("Submission error:", error)
+      const errorMessage = error instanceof Error ? error.message : "Error submitting form. Please try again."
+      toast.error(errorMessage)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -82,14 +167,7 @@ export default function AgencyForm() {
 
       <div className="relative w-full max-w-4xl mt-20 mb-6">
         <div className="bg-white rounded-lg shadow-xl overflow-y-auto">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault()
-              // Handle form submission here
-              console.log("Form submitted")
-              // You can add form validation and submission logic here
-            }}
-          >
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="p-6 md:p-8">
               <h1 className="text-4xl lg:text-4xl font-normal text-center mb-8 font-nunito">
                 Tell Us About Your Business
@@ -98,41 +176,61 @@ export default function AgencyForm() {
               <div className="space-y-8">
                 {/* Basic Informations Section */}
                 <div>
-                  <h2 className="text-2xl  mb-6 text-greyish font-poppins ">Basic Informations</h2>
-                  <div className="grid md:grid-cols-2 gap-4 ">
+                  <h2 className="text-2xl mb-6 text-greyish font-poppins">Basic Informations</h2>
+                  <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="contact-person font-poppins">Primary contact person*</Label>
+                      <Label htmlFor="contact-person" className="font-poppins">
+                        Primary contact person*
+                      </Label>
                       <Input
                         id="contact-person"
                         placeholder="John Smith"
                         className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white"
-                        required
+                        {...register("contactPerson")}
                       />
+                      {errors.contactPerson && (
+                        <p className="text-red-500 text-xs mt-1">{errors.contactPerson.message}</p>
+                      )}
                     </div>
                     <div>
-                      <Label htmlFor="agency-type font-poppins">Agency type*</Label>
-                      <Select>
-                        <SelectTrigger className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white">
-                          <SelectValue placeholder="Private Limited" />
+                      <Label htmlFor="agency-type" className="font-poppins">
+                        Agency type*
+                      </Label>
+                      <Select onValueChange={(value) => setValue("agencyType", value as AgencyType)}>
+                        <SelectTrigger
+                          id="agency-type"
+                          className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white font-poppins"
+                        >
+                          <SelectValue placeholder="Select agency type" />
                         </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="private font-poppins">Private Limited</SelectItem>
+                        <SelectContent className="font-poppins">
+                          <SelectItem value="PRIVATE_LIMITED">Private Limited</SelectItem>
+                          <SelectItem value="PROPRIETORSHIP">Proprietorship</SelectItem>
+                          <SelectItem value="PARTNERSHIP">Partnership</SelectItem>
+                          <SelectItem value="PUBLIC_LIMITED">Public Limited Companies</SelectItem>
+                          <SelectItem value="LLP">Limited Liability Partnership</SelectItem>
                         </SelectContent>
                       </Select>
+                      {errors.agencyType && <p className="text-red-500 text-xs mt-1">{errors.agencyType.message}</p>}
                     </div>
                     <div>
-                      <Label htmlFor="designation font-poppins">Designation*</Label>
+                      <Label htmlFor="designation" className="font-poppins">
+                        Designation*
+                      </Label>
                       <Input
                         id="designation"
                         placeholder="Designation"
                         className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white"
-                        required
+                        {...register("designation")}
                       />
+                      {errors.designation && <p className="text-red-500 text-xs mt-1">{errors.designation.message}</p>}
                     </div>
                     <div>
-                      <Label htmlFor="phone font-poppins">Phone number*</Label>
+                      <Label htmlFor="phone" className="font-poppins">
+                        Phone number*
+                      </Label>
                       <div className="flex">
-                        <Select defaultValue="+91">
+                        <Select defaultValue="+91" onValueChange={(value) => setValue("phoneCountryCode", value)}>
                           <SelectTrigger className="w-20 h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white">
                             <SelectValue placeholder="+91" />
                           </SelectTrigger>
@@ -146,15 +244,16 @@ export default function AgencyForm() {
                           id="phone"
                           placeholder="Enter phone number"
                           className="flex-1 ml-2 h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white"
-                          required
+                          {...register("phoneNumber")}
                         />
                       </div>
+                      {errors.phoneNumber && <p className="text-red-500 text-xs mt-1">{errors.phoneNumber.message}</p>}
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <h2 className="  text-greyish text-2xl  mb-6 font-poppins ">Company Details</h2>
+                  <h2 className="text-greyish text-2xl mb-6 font-poppins">Company Details</h2>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="owner-name">Owner name*</Label>
@@ -162,23 +261,29 @@ export default function AgencyForm() {
                         id="owner-name"
                         placeholder="Johan Smith"
                         className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white"
-                        required
+                        {...register("ownerName")}
                       />
+                      {errors.ownerName && <p className="text-red-500 text-xs mt-1">{errors.ownerName.message}</p>}
                     </div>
                     <div>
-                      <Label htmlFor="email font-poppins">Email*</Label>
+                      <Label htmlFor="email" className="font-poppins">
+                        Email*
+                      </Label>
                       <Input
                         id="email"
                         type="email"
                         placeholder="ex: email@domain.com"
                         className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white"
-                        required
+                        {...register("email")}
                       />
+                      {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
                     </div>
                     <div>
-                      <Label htmlFor="company-phone font-poppins">Phone number*</Label>
+                      <Label htmlFor="company-phone" className="font-poppins">
+                        Phone number*
+                      </Label>
                       <div className="flex">
-                        <Select defaultValue="+91">
+                        <Select defaultValue="+91" onValueChange={(value) => setValue("companyPhoneCode", value)}>
                           <SelectTrigger className="w-20 h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white">
                             <SelectValue placeholder="+91" />
                           </SelectTrigger>
@@ -192,21 +297,29 @@ export default function AgencyForm() {
                           id="company-phone"
                           placeholder="Enter phone number"
                           className="flex-1 ml-2 h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white"
-                          required
+                          {...register("companyPhone")}
                         />
                       </div>
+                      {errors.companyPhone && (
+                        <p className="text-red-500 text-xs mt-1">{errors.companyPhone.message}</p>
+                      )}
                     </div>
                     <div>
-                      <Label htmlFor="website font-poppins">Website*</Label>
+                      <Label htmlFor="website" className="font-poppins">
+                        Website*
+                      </Label>
                       <Input
                         id="website"
                         placeholder="Website URL"
                         className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white"
-                        required
+                        {...register("website")}
                       />
+                      {errors.website && <p className="text-red-500 text-xs mt-1">{errors.website.message}</p>}
                     </div>
                     <div>
-                      <Label htmlFor="logo font-poppins">Logo*</Label>
+                      <Label htmlFor="logo" className="font-poppins">
+                        Logo*
+                      </Label>
                       <div className="mt-1 flex items-center relative">
                         <div className="bg-white rounded-l-md border border-gray-300 border-r-0 flex-grow h-12 flex items-center px-3 text-sm">
                           {logoFile
@@ -243,6 +356,7 @@ export default function AgencyForm() {
                       {logoUploaded && !logoLoading && (
                         <p className="text-xs text-green-600 mt-1">File uploaded successfully!</p>
                       )}
+                      {errors.logo && <p className="text-red-500 text-xs mt-1">{errors.logo.message}</p>}
                       <p className="text-xs text-gray-500 mt-1">File size should be under 3MB</p>
                     </div>
                     <div>
@@ -304,6 +418,7 @@ export default function AgencyForm() {
                                     size="sm"
                                     onClick={() => {
                                       setColor(tempColor)
+                                      setValue("landingPageColor", tempColor)
                                       setShowColorPicker(false)
                                     }}
                                     className="bg-greenook hover:bg-bg-greenook h-10 focus:ring-0 font-poppins"
@@ -323,7 +438,11 @@ export default function AgencyForm() {
                 <div className="grid md:grid-cols-2 gap-4 font-poppins">
                   <div>
                     <Label>GST Registration*</Label>
-                    <RadioGroup defaultValue="yes" className="flex gap-4 mt-1" name="gst-registration">
+                    <RadioGroup
+                      defaultValue="yes"
+                      className="flex gap-4 mt-1"
+                      onValueChange={(value) => setValue("gstRegistered", value === "yes")}
+                    >
                       <div className="flex items-center space-x-2 h-12">
                         <RadioGroupItem value="yes" id="gst-yes" className="focus:ring-0" />
                         <Label htmlFor="gst-yes">Yes</Label>
@@ -336,24 +455,33 @@ export default function AgencyForm() {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4 font-poppins">
-                  <div>
-                    <Label htmlFor="gst-no">GST No.*</Label>
-                    <Input
-                      id="gst-no"
-                      placeholder="GST Number"
-                      className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white"
-                      required
-                    />
+                {gstRegistered && (
+                  <div className="grid md:grid-cols-2 gap-4 font-poppins">
+                    <div>
+                      <Label htmlFor="gst-no">GST No.*</Label>
+                      <Input
+                        id="gst-no"
+                        placeholder="GST Number"
+                        className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white"
+                        {...register("gstNumber")}
+                      />
+                      {errors.gstNumber && <p className="text-red-500 text-xs mt-1">{errors.gstNumber.message}</p>}
+                    </div>
                   </div>
+                )}
+
+                <div className="grid md:grid-cols-2 gap-4 font-poppins">
                   <div>
                     <Label htmlFor="year-reg">Year of Registration *</Label>
                     <Input
                       id="year-reg"
                       placeholder="Year of Registration"
                       className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white"
-                      required
+                      {...register("yearOfRegistration")}
                     />
+                    {errors.yearOfRegistration && (
+                      <p className="text-red-500 text-xs mt-1">{errors.yearOfRegistration.message}</p>
+                    )}
                   </div>
                   <div>
                     <Label htmlFor="pan-no">PAN No.*</Label>
@@ -361,20 +489,24 @@ export default function AgencyForm() {
                       id="pan-no"
                       placeholder="PAN Number"
                       className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white font-poppins"
-                      required
+                      {...register("panNumber")}
                     />
+                    {errors.panNumber && <p className="text-red-500 text-xs mt-1">{errors.panNumber.message}</p>}
                   </div>
                   <div>
                     <Label htmlFor="pan-type">PAN Type*</Label>
-                    <Select>
+                    <Select onValueChange={(value) => setValue("panType", value as PanType)}>
                       <SelectTrigger className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white font-poppins">
-                        <SelectValue placeholder="Company" />
+                        <SelectValue placeholder="Select PAN type" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="company">Company</SelectItem>
-                        <SelectItem value="individual">Individual</SelectItem>
+                        <SelectItem value="INDIVIDUAL">Individual</SelectItem>
+                        <SelectItem value="COMPANY">Company</SelectItem>
+                        <SelectItem value="TRUST">Trust</SelectItem>
+                        <SelectItem value="OTHER">Other</SelectItem>
                       </SelectContent>
                     </Select>
+                    {errors.panType && <p className="text-red-500 text-xs mt-1">{errors.panType.message}</p>}
                   </div>
                   <div>
                     <Label htmlFor="headquarters">Headquarters*</Label>
@@ -382,19 +514,20 @@ export default function AgencyForm() {
                       id="headquarters"
                       placeholder="Address"
                       className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white font-poppins"
-                      required
+                      {...register("headquarters")}
                     />
+                    {errors.headquarters && <p className="text-red-500 text-xs mt-1">{errors.headquarters.message}</p>}
                   </div>
                   <div>
                     <Label htmlFor="country">Country*</Label>
-                    <Select>
+                    <Select onValueChange={(value) => setValue("country", value)}>
                       <SelectTrigger className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white font-poppins">
-                        <SelectValue placeholder="INDIA" />
+                        <SelectValue placeholder="Select country" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="india">INDIA</SelectItem>
-                        <SelectItem value="usa">USA</SelectItem>
-                        <SelectItem value="uk">UK</SelectItem>
+                        <SelectItem value="INDIA">INDIA</SelectItem>
+                        <SelectItem value="USA">USA</SelectItem>
+                        <SelectItem value="UK">UK</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -404,8 +537,11 @@ export default function AgencyForm() {
                       id="years-operation"
                       placeholder="Years of operation"
                       className="h-12 border border-gray-300 focus:border-gray-400 focus:ring-0 focus:bg-white font-poppins"
-                      required
+                      {...register("yearsOfOperation")}
                     />
+                    {errors.yearsOfOperation && (
+                      <p className="text-red-500 text-xs mt-1">{errors.yearsOfOperation.message}</p>
+                    )}
                   </div>
                   <div>
                     <Label htmlFor="license">Business License / Registration Certificate*</Label>
@@ -445,6 +581,9 @@ export default function AgencyForm() {
                     {licenseUploaded && !licenseLoading && (
                       <p className="text-xs text-green-600 mt-1">File uploaded successfully!</p>
                     )}
+                    {errors.businessLicense && (
+                      <p className="text-red-500 text-xs mt-1">{errors.businessLicense.message}</p>
+                    )}
                     <p className="text-xs text-gray-500 mt-1">File size should be under 3MB</p>
                   </div>
                 </div>
@@ -452,9 +591,10 @@ export default function AgencyForm() {
                 <div className="pt-4">
                   <Button
                     type="submit"
+                    disabled={isSubmitting}
                     className="w-full sm:w-[356px] mx-auto rounded-full bg-greenook px-4 py-3 h-12 font-medium text-white hover:bg-greenook focus:outline-none focus:ring-0 transition-colors flex items-center justify-center font-poppins"
                   >
-                    Lets get started
+                    {isSubmitting ? "Submitting..." : "Let's get started"}
                   </Button>
                 </div>
               </div>
