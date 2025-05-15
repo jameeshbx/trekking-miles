@@ -17,6 +17,9 @@ import {
   Edit,
   Trash2,
   Circle,
+  Check,
+  X,
+  Clock,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -26,12 +29,14 @@ import { Calendar as CalendarComponent } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { format } from "date-fns"
 import { dmcRequests, getStatusColor, type DMCRequest } from "@/data/dmc"
+import { toast } from "@/components/ui/use-toast"
 
 export default function Dmcsignup() {
   const router = useRouter()
   const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, ] = useState(8)
+  const [itemsPerPage] = useState(8)
   const [filteredRequests, setFilteredRequests] = useState<DMCRequest[]>(dmcRequests)
+  const [allRequests, setAllRequests] = useState<DMCRequest[]>(dmcRequests)
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedStatuses] = useState<Record<string, boolean>>({
     Active: true,
@@ -182,7 +187,10 @@ export default function Dmcsignup() {
       ...prev,
       [id]: checked,
     }))
-    const allSelected = currentItems.every((item) => selectedItems[item.id] === true || (item.id === id && checked))
+
+    // Check if all current items are selected
+    const updatedSelectedItems = { ...selectedItems, [id]: checked }
+    const allSelected = currentItems.every((item) => updatedSelectedItems[item.id] === true)
     setSelectAll(allSelected)
   }
 
@@ -213,6 +221,91 @@ export default function Dmcsignup() {
   // Navigate to detail page
   const navigateToDetail = (id: string) => {
     router.push(`/request-dashboard/${id}`)
+  }
+
+  // Get count of selected items
+  const getSelectedCount = () => {
+    return Object.values(selectedItems).filter(Boolean).length
+  }
+
+  // Check if any items are selected
+  const hasSelectedItems = () => {
+    return getSelectedCount() > 0
+  }
+
+  // Change request status for selected items
+  const changeRequestStatus = (status: string) => {
+    if (!hasSelectedItems()) {
+      toast({
+        title: "No items selected",
+        description: "Please select at least one item to change status.",
+        variant: "destructive",
+      })
+      return
+    }
+
+    // Create a copy of the requests array
+    const updatedRequests = [...allRequests]
+
+    // Update the status of selected items
+    updatedRequests.forEach((request) => {
+      if (selectedItems[request.id]) {
+        request.requestStatus = status
+      }
+    })
+
+    // Update state
+    setAllRequests(updatedRequests)
+
+    // Update filtered requests to reflect changes
+    const updatedFilteredRequests = filteredRequests.map((request) => {
+      if (selectedItems[request.id]) {
+        return { ...request, requestStatus: status }
+      }
+      return request
+    })
+
+    setFilteredRequests(updatedFilteredRequests)
+
+    // Show success message
+    toast({
+      title: "Status updated",
+      description: `${getSelectedCount()} items updated to ${status}`,
+    })
+
+    // Reset selections
+    setSelectedItems({})
+    setSelectAll(false)
+  }
+
+  // Download selected items
+  const downloadSelected = () => {
+    if (!hasSelectedItems()) {
+      toast({
+        title: "No items selected",
+        description: "Please select at least one item to download.",
+        variant: "destructive",
+      })
+      return
+    }
+
+    const selectedData = filteredRequests.filter((item) => selectedItems[item.id])
+    const jsonString = JSON.stringify(selectedData, null, 2)
+    const blob = new Blob([jsonString], { type: "application/json" })
+    const url = URL.createObjectURL(blob)
+
+    const a = document.createElement("a")
+    a.href = url
+    a.download = "selected-requests.json"
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+
+    toast({
+      title: "Download started",
+      description: `${getSelectedCount()} items downloaded`,
+    })
   }
 
   return (
@@ -253,7 +346,12 @@ export default function Dmcsignup() {
                     <Checkbox
                       id="approved"
                       checked={selectedRequestStatuses.Approved}
-                      onChange={(e) => setSelectedRequestStatuses((prev) => ({ ...prev, Approved: (e.target as HTMLInputElement).checked }))}
+                      onCheckedChange={(checked) =>
+                        setSelectedRequestStatuses((prev) => ({
+                          ...prev,
+                          Approved: checked === true,
+                        }))
+                      }
                     />
                     <label htmlFor="approved" className="text-sm">
                       Approved
@@ -263,7 +361,12 @@ export default function Dmcsignup() {
                     <Checkbox
                       id="pending"
                       checked={selectedRequestStatuses.Pending}
-                      onChange={(e) => setSelectedRequestStatuses((prev) => ({ ...prev, Pending: (e.target as HTMLInputElement).checked }))}
+                      onCheckedChange={(checked) =>
+                        setSelectedRequestStatuses((prev) => ({
+                          ...prev,
+                          Pending: checked === true,
+                        }))
+                      }
                     />
                     <label htmlFor="pending" className="text-sm">
                       Pending
@@ -273,7 +376,12 @@ export default function Dmcsignup() {
                     <Checkbox
                       id="rejected"
                       checked={selectedRequestStatuses.Rejected}
-                      onChange={(e) => setSelectedRequestStatuses((prev) => ({ ...prev, Rejected: (e.target as HTMLInputElement).checked }))}
+                      onCheckedChange={(checked) =>
+                        setSelectedRequestStatuses((prev) => ({
+                          ...prev,
+                          Rejected: checked === true,
+                        }))
+                      }
                     />
                     <label htmlFor="rejected" className="text-sm">
                       Rejected
@@ -390,11 +498,52 @@ export default function Dmcsignup() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button variant="outline" className="h-10 w-10 p-0 flex items-center justify-center" aria-label="Download">
+            <Button
+              variant="outline"
+              className="h-10 w-10 p-0 flex items-center justify-center"
+              aria-label="Download"
+              onClick={downloadSelected}
+            >
               <Download className="h-4 w-4" />
             </Button>
           </div>
         </div>
+
+        {/* Status Action Buttons - Show when items are selected */}
+        {hasSelectedItems() && (
+          <div className="flex flex-wrap gap-2 mt-2 items-center">
+            <span className="text-sm text-gray-500">{getSelectedCount()} items selected</span>
+            <div className="flex gap-2 ml-auto">
+              <Button
+                size="sm"
+                variant="outline"
+                className="bg-green-50 text-green-600 border-green-200 hover:bg-green-100"
+                onClick={() => changeRequestStatus("Approved")}
+              >
+                <Check className="h-4 w-4 mr-1" />
+                Approve
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                className="bg-yellow-50 text-yellow-600 border-yellow-200 hover:bg-yellow-100"
+                onClick={() => changeRequestStatus("Pending")}
+              >
+                <Clock className="h-4 w-4 mr-1" />
+                Pending
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                className="bg-red-50 text-red-600 border-red-200 hover:bg-red-100"
+                onClick={() => changeRequestStatus("Rejected")}
+              >
+                <X className="h-4 w-4 mr-1" />
+                Reject
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Table/Card View (Responsive) */}
@@ -405,7 +554,7 @@ export default function Dmcsignup() {
             <thead>
               <tr className="bg-gray-50 border-b border-gray-200">
                 <th className="p-3 text-left w-10">
-                  <Checkbox checked={selectAll} onChange={(e) => handleSelectAll((e.target as HTMLInputElement).checked)} />
+                  <Checkbox checked={selectAll} onCheckedChange={(checked) => handleSelectAll(checked === true)} />
                 </th>
                 <th className="p-3 text-left font-medium text-sm">Request ID</th>
                 <th className="p-3 text-left font-medium text-sm">Name</th>
@@ -423,7 +572,7 @@ export default function Dmcsignup() {
                   <td className="p-3">
                     <Checkbox
                       checked={selectedItems[request.id] || false}
-                      onChange={(e) => handleSelectItem(request.id, (e.target as HTMLInputElement).checked)}
+                      onCheckedChange={(checked) => handleSelectItem(request.id, checked === true)}
                     />
                   </td>
                   <td className="p-3 text-sm">{request.id}</td>
@@ -497,7 +646,7 @@ export default function Dmcsignup() {
                 <thead>
                   <tr className="bg-gray-50 border-b border-gray-200">
                     <th className="p-2 text-left w-10">
-                      <Checkbox checked={selectAll} onChange={(e) => handleSelectAll((e.target as HTMLInputElement).checked)} />
+                      <Checkbox checked={selectAll} onCheckedChange={(checked) => handleSelectAll(checked === true)} />
                     </th>
                     <th className="p-2 text-left font-medium text-sm">Name</th>
                     <th className="p-2 text-left font-medium text-sm">DMC Name</th>
@@ -511,7 +660,7 @@ export default function Dmcsignup() {
                       <td className="p-2">
                         <Checkbox
                           checked={selectedItems[request.id] || false}
-                          onChange={(e) => handleSelectItem(request.id, (e.target as HTMLInputElement).checked)}
+                          onCheckedChange={(checked) => handleSelectItem(request.id, checked === true)}
                         />
                       </td>
                       <td className="p-2 text-sm font-medium">
@@ -564,7 +713,6 @@ export default function Dmcsignup() {
 
       {/* Pagination */}
       <div className="flex flex-wrap items-center justify-center sm:justify-end mt-4 gap-2">
-        
         <div className="flex items-center gap-1">
           <Button
             variant="outline"
@@ -640,3 +788,4 @@ export default function Dmcsignup() {
     </div>
   )
 }
+
