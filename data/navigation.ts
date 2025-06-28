@@ -91,6 +91,14 @@ export interface NavigationData {
       title: "Profile",
       subtitle: "Profile",
     },
+    "/agency/dashboard/enquiry": {
+      breadcrumbs: [
+        { label: "Pages", href: "/agency" },
+        { label: "Dashboard", href: "/dashboard", active: true },
+      ],
+      title: "Enquiries",
+      subtitle: "Manage enquiries and followup",
+    },
   }
   
   export function getNavigationData(path: string) {
