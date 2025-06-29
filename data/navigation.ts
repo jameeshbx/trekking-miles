@@ -59,7 +59,7 @@ export interface NavigationData {
       title: "Profile",
       subtitle: "Profile",
     },
-    "/admin/dashboard/add-DMC": {
+    "/admin/dashboard/add-dmc": {
       breadcrumbs: [
         { label: "Pages", href: "/admin" },
         { label: "Dashboard", href: "/dashboard", active: true },

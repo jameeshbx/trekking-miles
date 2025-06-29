@@ -127,7 +127,7 @@ const Sidebar = ({ expanded }: SidebarProps) => {
     },
     {
       title: 'Add DMC',
-      href: '/admin/add dmc',
+      href: '/admin/dashboard/add-dmc',
       icon: (
         <Image
           src="/Vector.svg"
@@ -143,7 +143,7 @@ const Sidebar = ({ expanded }: SidebarProps) => {
   const accountItems = [
     {
       title: 'Profile',
-      href: '/admin/profile',
+      href: '/admin/dashboard/profile',
       icon: (
         <Image
           src="/profile.svg"
