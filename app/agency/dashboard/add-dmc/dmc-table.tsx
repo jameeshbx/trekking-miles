@@ -43,8 +43,8 @@ export function DMCTable() {
     const sorted = [...dmcData].sort((a, b) => {
       if (value === "name") {
         return sortOrder === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
-      } else if (value === "contact") {
-        return sortOrder === "asc" ? a.contact.localeCompare(b.contact) : b.contact.localeCompare(a.contact)
+      } else if (value === "primaryContact") {
+        return sortOrder === "asc" ? a.primaryContact.localeCompare(b.primaryContact) : b.primaryContact.localeCompare(a.primaryContact)
       } else if (value === "status") {
         return sortOrder === "asc" ? a.status.localeCompare(b.status) : b.status.localeCompare(a.status)
       }
@@ -67,7 +67,7 @@ export function DMCTable() {
     const filtered = dmcData.filter(
       (dmc) =>
         dmc.name.toLowerCase().includes(query.toLowerCase()) ||
-        dmc.contact.toLowerCase().includes(query.toLowerCase()) ||
+        dmc.primaryContact.toLowerCase().includes(query.toLowerCase()) ||
         dmc.email.toLowerCase().includes(query.toLowerCase()),
     )
 
@@ -107,8 +107,8 @@ export function DMCTable() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="name">Name {sortBy === "name" && (sortOrder === "asc" ? "↑" : "↓")}</SelectItem>
-              <SelectItem value="contact">
-                Contact {sortBy === "contact" && (sortOrder === "asc" ? "↑" : "↓")}
+              <SelectItem value="primaryContact">
+                Contact {sortBy === "primaryContact" && (sortOrder === "asc" ? "↑" : "↓")}
               </SelectItem>
               <SelectItem value="status">Status {sortBy === "status" && (sortOrder === "asc" ? "↑" : "↓")}</SelectItem>
             </SelectContent>
@@ -154,8 +154,8 @@ export function DMCTable() {
                     <TableCell className="py-3 font-medium">
                       <div className="flex items-center gap-2">{dmc.name}</div>
                     </TableCell>
-                    <TableCell className="py-3">{dmc.contact}</TableCell>
-                    <TableCell className="py-3 hidden md:table-cell">{dmc.phone}</TableCell>
+                    <TableCell className="py-3">{dmc.primaryContact}</TableCell>
+                    <TableCell className="py-3 hidden md:table-cell">{dmc.phoneNumber}</TableCell>
                     <TableCell className="py-3 hidden md:table-cell">{dmc.designation}</TableCell>
                     <TableCell className="py-3 hidden sm:table-cell">{dmc.email}</TableCell>
                     <TableCell className="py-3 hidden lg:table-cell">
