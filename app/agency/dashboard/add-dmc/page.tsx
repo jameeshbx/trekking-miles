@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
-      {/* Topbar that respects sidebar width */}
+      {/* Topbar */}
       <div
         className={`fixed top-0 right-0 z-50 bg-white shadow-sm transition-all duration-300 ${
           sidebarExpanded ? "lg:left-64" : "lg:left-20"
